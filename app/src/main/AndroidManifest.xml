@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.example.cmpickle.basicsms"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.WRITE_SMS"/>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
+    <uses-permission android:name="android.permission.READ_SMS"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ReceiveActivity"
+            android:label="@string/title_activity_recieve">
+        </activity>
+        <activity
+            android:name=".SendSMSActivity"
+            android:label="@string/title_activity_send_sms">
+        </activity>
+        <activity
+            android:name=".SMSBroadcastReceiver"
+            android:label="@string/title_activity_smsbroadcast_reciever">
+        </activity>
+
+        <receiver
+            android:name=".SMSBroadcastReceiver"
+            android:exported="true">
+            <intent-filter android:priority="999">
+                <action android:name="android.provider.Telephony.SMS_RECIEVED"/>
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".ConversationActivity"
+            android:label="@string/title_activity_conversation">
+        </activity>
+    </application>
+
+</manifest>
