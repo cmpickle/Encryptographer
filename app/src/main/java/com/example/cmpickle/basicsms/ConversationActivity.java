@@ -95,7 +95,7 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
     }
 
     public void goToCompose(View v) {
-        Intent intent = new Intent(ReceiveActivity.this, SendSMSActivity.class);
+        Intent intent = new Intent(ConversationActivity.this, SendSMSActivity.class);
         startActivity(intent);
     }
 
