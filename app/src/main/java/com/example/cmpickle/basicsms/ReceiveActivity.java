@@ -50,13 +50,14 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
 
     public void refreshSmsInbox() {
         ContentResolver contentResolver = getContentResolver();
-        Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, null, null, null);
+        Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address IS NOT NULL) GROUP BY (address", null, null);
         int indexBody = smsInboxCursor.getColumnIndex("body");
         int indexAddress = smsInboxCursor.getColumnIndex("address");
         int timeMillis = smsInboxCursor.getColumnIndex("date");
         Date date = new Date(timeMillis);
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
         String dateText = format.format(date);
+//        Date dateText = new Date((int)smsInboxCursor.getLong(smsInboxCursor.getColumnIndex("date")));
 
         if(indexBody < 0 || !smsInboxCursor.moveToFirst())
             return;
@@ -76,21 +77,25 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
     {
-        try {
-            String[] smsMessages = smsMessageList.get(position).split("\n");
-            String address = smsMessages[0];
-            String smsMessage = "";
-
-            for(int i = 1; i < smsMessages.length-1; i++) {
-                smsMessage += smsMessages[i];
-            }
-
-            String smsMessageStr = address + "\n";
-            smsMessageStr += decode(smsMessage);
-            Toast.makeText(this, smsMessageStr, Toast.LENGTH_LONG).show();
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+        Intent intent = new Intent(ReceiveActivity.this, ConversationActivity.class);
+        String[] smsMessages = smsMessageList.get(position).split("\n");
+        intent.putExtra("phoneNum", smsMessages[0]);
+        startActivity(intent);
+//        try {
+//            String[] smsMessages = smsMessageList.get(position).split("\n");
+//            String address = smsMessages[0];
+//            String smsMessage = "";
+//
+//            for(int i = 1; i < smsMessages.length-1; i++) {
+//                smsMessage += smsMessages[i];
+//            }
+//
+//            String smsMessageStr = address + "\n";
+//            smsMessageStr += decode(smsMessage);
+//            Toast.makeText(this, smsMessageStr, Toast.LENGTH_LONG).show();
+//        } catch(Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void goToCompose(View v) {
