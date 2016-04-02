@@ -19,11 +19,13 @@ import java.util.Random;
 
 public class ConversationActivity extends Activity implements AdapterView.OnItemClickListener {
 
+    Bundle b;
+    String bundle;
     private static ConversationActivity inst;
     ArrayList<String> smsMessageList = new ArrayList<>();
     ListView smsListView;
     ArrayAdapter arrayAdapter;
-    int address;
+    String address = "+18016949546"; //
 
     public static ConversationActivity instance() {
         return inst;
@@ -39,19 +41,24 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recieve);
+        setContentView(R.layout.activity_conversation);
 
         smsListView = (ListView) findViewById(R.id.SMSList);
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, smsMessageList);
         smsListView.setAdapter(arrayAdapter);
         smsListView.setOnItemClickListener(this);
 
+        b = getIntent().getExtras();
+        bundle = b.getString("phoneNum");
+
+        Toast.makeText(this, bundle, Toast.LENGTH_SHORT).show();
+
         refreshSmsInbox();
     }
 
     public void refreshSmsInbox() {
         ContentResolver contentResolver = getContentResolver();
-        Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, null, null, null);
+        Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms"), null, " address = \'" + bundle + "\'", null, null);
         int indexBody = smsInboxCursor.getColumnIndex("body");
         int indexAddress = smsInboxCursor.getColumnIndex("address");
         int timeMillis = smsInboxCursor.getColumnIndex("date");
@@ -94,8 +101,8 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
         }
     }
 
-    public void goToCompose(View v) {
-        Intent intent = new Intent(ConversationActivity.this, SendSMSActivity.class);
+    public void goToReceive(View v) {
+        Intent intent = new Intent(ConversationActivity.this, ReceiveActivity.class);
         startActivity(intent);
     }
 

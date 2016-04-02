@@ -24,4 +24,9 @@ public class MainActivity extends ActionBarActivity {
         Intent intent = new Intent(MainActivity.this, SendSMSActivity.class);
         startActivity(intent);
     }
+
+    public void goToConversation(View v) {
+        Intent intent = new Intent(MainActivity.this, ConversationActivity.class);
+        startActivity(intent);
+    }
 }
