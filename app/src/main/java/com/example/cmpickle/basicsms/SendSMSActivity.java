@@ -43,6 +43,8 @@ public class SendSMSActivity extends ActionBarActivity {
             smsManager.sendTextMessage(toPhone, null, smsMessage, null, null);
 
             Toast.makeText(this, "SMS sent", Toast.LENGTH_LONG).show();
+
+            toPhoneNumber.setText("");
         } catch (Exception e) {
             e.printStackTrace();
         }
