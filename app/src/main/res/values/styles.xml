@@ -2,7 +2,16 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+        <item name="android:textViewStyle">@style/grayTextView</item>
+        <item name="android:background">@color/background</item>
+        <item name="android:editTextColor">@color/text</item>
+    </style>
+
+    <style name="grayTextView" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/text</item>
+    </style>
+
+    <style name="backgroundColor" parent="android:Theme.Black">
     </style>
 
 </resources>

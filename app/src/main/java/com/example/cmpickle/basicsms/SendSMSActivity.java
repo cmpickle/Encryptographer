@@ -27,6 +27,7 @@ public class SendSMSActivity extends ActionBarActivity {
         toPhoneNumber = (EditText) findViewById(R.id.editTextPhoneNo);
         smsMessageET = (EditText) findViewById(R.id.editTextSMS);
 
+        //OnClick listener for the send button
         sendSmsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -34,22 +35,36 @@ public class SendSMSActivity extends ActionBarActivity {
             }
         });
     }
+
+    /**
+     * Sends a SMS using the phone number in the toPhoneNumber EditText and the
+     * message in the smsMessageET EditText
+     */
     private void sendSms() {
         String toPhone = toPhoneNumber.getText().toString();
         String smsMessage = encode(smsMessageET.getText().toString());
 
         try {
+            //SmsManager is used to send sms messages
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(toPhone, null, smsMessage, null, null);
 
+            //notify user that the sms was sent
             Toast.makeText(this, "SMS sent", Toast.LENGTH_LONG).show();
 
+            //After sending message clear EditText fields
             toPhoneNumber.setText("");
+            smsMessageET.setText("");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Starts the Receive Activity
+     *
+     * @param v - The current view
+     */
     public void goToInbox(View v) {
         Intent intent = new Intent(SendSMSActivity.this, ReceiveActivity.class);
         startActivity(intent);

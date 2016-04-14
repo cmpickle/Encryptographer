@@ -7,7 +7,6 @@
     android:orientation="vertical"
     android:id="@+id/mainLayout"
     android:weightSum="1"
-    android:background="#ffcecbff"
     tools:context=".ReceiveActivity">
 
     <TextView
