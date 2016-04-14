@@ -21,19 +21,19 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
 
     Bundle b;
     String bundle;
-//    private static ConversationActivity inst;
+    private static ConversationActivity inst;
     ArrayList<String> smsMessageList = new ArrayList<>();
     ListView smsListView;
     ArrayAdapter arrayAdapter;
 
-//    public static ConversationActivity instance() {
-//        return inst;
-//    }
+    public static ConversationActivity instance() {
+        return inst;
+    }
 
     @Override
     protected void onStart() {
         super.onStart();
-//        inst = this;
+        inst = this;
     }
 
     @Override

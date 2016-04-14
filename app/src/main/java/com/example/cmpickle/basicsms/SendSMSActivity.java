@@ -53,8 +53,8 @@ public class SendSMSActivity extends ActionBarActivity {
             Toast.makeText(this, "SMS sent", Toast.LENGTH_LONG).show();
 
             //After sending message clear EditText fields
-            toPhoneNumber.setText("");
-            smsMessageET.setText("");
+//            toPhoneNumber.setText("");
+//            smsMessageET.setText("");
         } catch (Exception e) {
             e.printStackTrace();
         }

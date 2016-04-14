@@ -4,11 +4,21 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:textViewStyle">@style/grayTextView</item>
         <item name="android:background">@color/background</item>
-        <item name="android:editTextColor">@color/text</item>
+        <item name="android:editTextStyle">@style/greyEditText</item>
+        <item name="android:buttonStyle">@style/buttonStyle</item>
     </style>
 
     <style name="grayTextView" parent="android:Widget.TextView">
         <item name="android:textColor">@color/text</item>
+    </style>
+
+    <style name="greyEditText" parent="android:Widget.EditText">
+        <item name="android:textColor">@color/text</item>
+    </style>
+
+    <style name="buttonStyle" parent="android:Widget.Button">
+        <item name="android:textColor">@color/buttonText</item>
+        <item name="android:color">@color/button</item>
     </style>
 
     <style name="backgroundColor" parent="android:Theme.Black">
