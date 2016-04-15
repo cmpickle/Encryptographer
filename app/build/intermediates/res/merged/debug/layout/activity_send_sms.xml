@@ -2,13 +2,12 @@
 <LinearLayout
     android:id="@+id/mainLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:textColor="@color/text"
     android:orientation="vertical"
-    android:weightSum="1"
-    tools:context="com.example.cmpickle.basicsms.SendSMSActivity">
+    android:weightSum="1">
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--tools:context="com.example.cmpickle.basicsms.SendSMSActivity">-->
 
     <TextView
         android:id="@+id/textView"
@@ -40,21 +39,37 @@
         android:id="@+id/editTextSMS"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minLines="4"
+        android:gravity="top|start"
         android:inputType="textMultiLine"/>
 
-    <Button
-        android:id="@+id/btnSendSMS"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="Send"/>
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
 
-    <Button
-        android:id="@+id/btnInbox"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Inbox"
-        android:onClick="goToInbox"/>
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnInbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/inbox"
+            android:layout_gravity="left"
+            android:layout_weight="1"
+            android:onClick="goToInbox"/>
+
+        <Button
+            android:id="@+id/btnSendSMS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:text="@string/send"/>
+    </LinearLayout>
 
 </LinearLayout>
 

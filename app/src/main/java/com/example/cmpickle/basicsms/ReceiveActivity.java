@@ -49,9 +49,11 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
     public void refreshSmsInbox() {
         ContentResolver contentResolver = getContentResolver();
         Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address IS NOT NULL) GROUP BY (address", null, null);
+
         int indexBody = smsInboxCursor.getColumnIndex("body");
         int indexAddress = smsInboxCursor.getColumnIndex("address");
         int timeMillis = smsInboxCursor.getColumnIndex("date");
+
         Date date = new Date(timeMillis);
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
         String dateText = format.format(date);
@@ -59,12 +61,16 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
 
         if(indexBody < 0 || !smsInboxCursor.moveToFirst())
             return;
+
         arrayAdapter.clear();
+
         do {
             String str = smsInboxCursor.getString(indexAddress) + "\n"
                     + smsInboxCursor.getString(indexBody) + "\n" + dateText + "\n";
             arrayAdapter.add(str);
         } while(smsInboxCursor.moveToNext());
+
+        smsInboxCursor.close();
     }
 
     public void updateList(final String smsMessage) {

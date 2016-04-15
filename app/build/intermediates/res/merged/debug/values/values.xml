@@ -16,7 +16,7 @@
     <color name="abc_search_url_text_selected">@android:color/black</color>
     <color name="accent_material_dark">@color/material_deep_teal_200</color>
     <color name="accent_material_light">@color/material_deep_teal_500</color>
-    <color name="background">#353333</color>
+    <color name="background">#111111</color>
     <color name="background_floating_material_dark">#ff424242</color>
     <color name="background_floating_material_light">#ffeeeeee</color>
     <color name="background_material_dark">#ff303030</color>
@@ -27,6 +27,8 @@
     <color name="bright_foreground_inverse_material_light">@color/bright_foreground_material_dark</color>
     <color name="bright_foreground_material_dark">@android:color/white</color>
     <color name="bright_foreground_material_light">@android:color/black</color>
+    <color name="button">#555555</color>
+    <color name="buttonText">#000000</color>
     <color name="button_material_dark">#ff5a595b</color>
     <color name="button_material_light">#ffd6d7d7</color>
     <color name="dim_foreground_disabled_material_dark">#80bebebe</color>
@@ -60,7 +62,7 @@
     <color name="secondary_text_disabled_material_light">#24000000</color>
     <color name="switch_thumb_normal_material_dark">#ffbdbdbd</color>
     <color name="switch_thumb_normal_material_light">#fff1f1f1</color>
-    <color name="text">#aaaaaa</color>
+    <color name="text">#cccccc</color>
     <declare-styleable name="ActionBar"><attr name="navigationMode"><enum name="normal" value="0"/><enum name="listMode" value="1"/><enum name="tabMode" value="2"/></attr><attr name="displayOptions"><flag name="none" value="0"/><flag name="useLogo" value="0x1"/><flag name="showHome" value="0x2"/><flag name="homeAsUp" value="0x4"/><flag name="showTitle" value="0x8"/><flag name="showCustom" value="0x10"/><flag name="disableHome" value="0x20"/></attr><attr name="title"/><attr format="string" name="subtitle"/><attr format="reference" name="titleTextStyle"/><attr format="reference" name="subtitleTextStyle"/><attr format="reference" name="icon"/><attr format="reference" name="logo"/><attr format="reference" name="divider"/><attr format="reference" name="background"/><attr format="reference|color" name="backgroundStacked"/><attr format="reference|color" name="backgroundSplit"/><attr format="reference" name="customNavigationLayout"/><attr name="height"/><attr format="reference" name="homeLayout"/><attr format="reference" name="progressBarStyle"/><attr format="reference" name="indeterminateProgressStyle"/><attr format="dimension" name="progressBarPadding"/><attr name="homeAsUpIndicator"/><attr format="dimension" name="itemPadding"/><attr format="boolean" name="hideOnContentScroll"/><attr format="dimension" name="contentInsetStart"/><attr format="dimension" name="contentInsetEnd"/><attr format="dimension" name="contentInsetLeft"/><attr format="dimension" name="contentInsetRight"/><attr format="dimension" name="elevation"/><attr format="reference" name="popupTheme"/></declare-styleable>
     <declare-styleable name="ActionBarLayout"><attr name="android:layout_gravity"/></declare-styleable>
     <declare-styleable name="ActionMenuItemView"><attr name="android:minWidth"/></declare-styleable>
@@ -157,15 +159,17 @@
     <string name="abc_toolbar_collapse_description">Collapse</string>
     <string name="action_settings">Settings</string>
     <string name="app_name">BasicSMS</string>
+    <string name="inbox">Inbox</string>
     <string name="send">Send</string>
     <string name="title_activity_conversation">ConversationActivity</string>
     <string name="title_activity_recieve">RecieveActivity</string>
     <string name="title_activity_send_sms">SendSMSActivity</string>
     <string name="title_activity_smsbroadcast_reciever">SMSBroadcastReciever</string>
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:textViewStyle">@style/grayTextView</item>
         <item name="android:background">@color/background</item>
-        <item name="android:editTextColor">@color/text</item>
+        <item name="android:editTextStyle">@style/greyEditText</item>
+        <item name="android:buttonStyle">@style/buttonStyle</item>
     </style>
     <style name="Base.TextAppearance.AppCompat" parent="android:TextAppearance">
         <item name="android:textColor">?android:textColorPrimary</item>
@@ -1205,7 +1209,14 @@
     <style name="Widget.AppCompat.Toolbar.Button.Navigation" parent="Base.Widget.AppCompat.Toolbar.Button.Navigation"/>
     <style name="backgroundColor" parent="android:Theme.Black">
     </style>
+    <style name="buttonStyle" parent="android:Widget.Button">
+        <item name="android:textColor">@color/buttonText</item>
+        <item name="android:color">@color/button</item>
+    </style>
     <style name="grayTextView" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/text</item>
+    </style>
+    <style name="greyEditText" parent="android:Widget.EditText">
         <item name="android:textColor">@color/text</item>
     </style>
 </resources>

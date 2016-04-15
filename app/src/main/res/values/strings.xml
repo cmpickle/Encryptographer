@@ -3,6 +3,7 @@
 
     <string name="app_name">BasicSMS</string>
     <string name="send">Send</string>
+    <string name="inbox">Inbox</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_recieve">RecieveActivity</string>
     <string name="title_activity_send_sms">SendSMSActivity</string>

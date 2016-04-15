@@ -58,6 +58,8 @@ public class SendSMSActivity extends ActionBarActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        goToInbox(null);
     }
 
     /**
