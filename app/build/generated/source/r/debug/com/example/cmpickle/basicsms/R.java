@@ -1410,9 +1410,9 @@ containing a value of this type.
         public static final int abc_search_view=0x7f030015;
         public static final int abc_simple_dropdown_hint=0x7f030016;
         public static final int activity_conversation=0x7f030017;
-        public static final int activity_recieve=0x7f030018;
+        public static final int activity_receive=0x7f030018;
         public static final int activity_send_sms=0x7f030019;
-        public static final int activity_smsbroadcast_reciever=0x7f03001a;
+        public static final int activity_smsbroadcast_receiver=0x7f03001a;
         public static final int support_simple_spinner_dropdown_item=0x7f03001b;
     }
     public static final class menu {
@@ -1437,12 +1437,17 @@ containing a value of this type.
         public static final int abc_toolbar_collapse_description=0x7f05000f;
         public static final int action_settings=0x7f050010;
         public static final int app_name=0x7f050011;
-        public static final int inbox=0x7f050012;
-        public static final int send=0x7f050013;
-        public static final int title_activity_conversation=0x7f050014;
-        public static final int title_activity_recieve=0x7f050015;
-        public static final int title_activity_send_sms=0x7f050016;
-        public static final int title_activity_smsbroadcast_reciever=0x7f050017;
+        public static final int compose=0x7f050012;
+        public static final int composeNewMessage=0x7f050013;
+        public static final int inbox=0x7f050014;
+        public static final int phoneNo=0x7f050015;
+        public static final int send=0x7f050016;
+        public static final int smsInbox=0x7f050017;
+        public static final int smsMessage=0x7f050018;
+        public static final int title_activity_conversation=0x7f050019;
+        public static final int title_activity_receive=0x7f05001a;
+        public static final int title_activity_send_sms=0x7f05001b;
+        public static final int title_activity_smsbroadcast_receiver=0x7f05001c;
     }
     public static final class style {
         public static final int AppTheme=0x7f090065;

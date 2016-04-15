@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.telephony.SmsManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +19,26 @@ public class SendSMSActivity extends ActionBarActivity {
     EditText toPhoneNumber;
     EditText smsMessageET;
 
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after)
+        {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count)
+        {
+            checkIfEmpty();
+        }
+
+        @Override
+        public void afterTextChanged(Editable s)
+        {
+
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -26,6 +48,11 @@ public class SendSMSActivity extends ActionBarActivity {
         sendSmsBtn = (Button) findViewById(R.id.btnSendSMS);
         toPhoneNumber = (EditText) findViewById(R.id.editTextPhoneNo);
         smsMessageET = (EditText) findViewById(R.id.editTextSMS);
+
+        toPhoneNumber.addTextChangedListener(textWatcher);
+        smsMessageET.addTextChangedListener(textWatcher);
+
+        checkIfEmpty();
 
         //OnClick listener for the send button
         sendSmsBtn.setOnClickListener(new View.OnClickListener() {
@@ -41,8 +68,12 @@ public class SendSMSActivity extends ActionBarActivity {
      * message in the smsMessageET EditText
      */
     private void sendSms() {
+
         String toPhone = toPhoneNumber.getText().toString();
         String smsMessage = encode(smsMessageET.getText().toString());
+
+        if(toPhone.isEmpty() || smsMessage.isEmpty())
+            return;
 
         try {
             //SmsManager is used to send sms messages
@@ -52,9 +83,6 @@ public class SendSMSActivity extends ActionBarActivity {
             //notify user that the sms was sent
             Toast.makeText(this, "SMS sent", Toast.LENGTH_LONG).show();
 
-            //After sending message clear EditText fields
-//            toPhoneNumber.setText("");
-//            smsMessageET.setText("");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -70,6 +98,18 @@ public class SendSMSActivity extends ActionBarActivity {
     public void goToInbox(View v) {
         Intent intent = new Intent(SendSMSActivity.this, ReceiveActivity.class);
         startActivity(intent);
+    }
+
+    private void checkIfEmpty() {
+        Button b = (Button) findViewById(R.id.btnSendSMS);
+
+        String s1 = toPhoneNumber.getText().toString();
+        String s2 = smsMessageET.getText().toString();
+
+        if(s1.trim().isEmpty() || s2.trim().isEmpty())
+            b.setEnabled(false);
+        else
+            b.setEnabled(true);
     }
 
     /**

@@ -8,10 +8,6 @@
         "source": "/home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/res/layout/activity_send_sms.xml"
     },
     {
-        "merged": "/home/cmpickle/AndroidStudioProjects/Basicsms/app/build/intermediates/res/merged/debug/layout/activity_recieve.xml",
-        "source": "/home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/res/layout/activity_recieve.xml"
-    },
-    {
         "merged": "/home/cmpickle/AndroidStudioProjects/Basicsms/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_icon.xml",
         "source": "/home/cmpickle/AndroidStudioProjects/Basicsms/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/layout/abc_list_menu_item_icon.xml"
     },
@@ -40,16 +36,12 @@
         "source": "/home/cmpickle/AndroidStudioProjects/Basicsms/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/layout/abc_action_menu_item_layout.xml"
     },
     {
-        "merged": "/home/cmpickle/AndroidStudioProjects/Basicsms/app/build/intermediates/res/merged/debug/layout/abc_screen_toolbar.xml",
-        "source": "/home/cmpickle/AndroidStudioProjects/Basicsms/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/layout/abc_screen_toolbar.xml"
-    },
-    {
         "merged": "/home/cmpickle/AndroidStudioProjects/Basicsms/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_radio.xml",
         "source": "/home/cmpickle/AndroidStudioProjects/Basicsms/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/layout/abc_list_menu_item_radio.xml"
     },
     {
-        "merged": "/home/cmpickle/AndroidStudioProjects/Basicsms/app/build/intermediates/res/merged/debug/layout/activity_smsbroadcast_reciever.xml",
-        "source": "/home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/res/layout/activity_smsbroadcast_reciever.xml"
+        "merged": "/home/cmpickle/AndroidStudioProjects/Basicsms/app/build/intermediates/res/merged/debug/layout/abc_screen_toolbar.xml",
+        "source": "/home/cmpickle/AndroidStudioProjects/Basicsms/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/layout/abc_screen_toolbar.xml"
     },
     {
         "merged": "/home/cmpickle/AndroidStudioProjects/Basicsms/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_checkbox.xml",
@@ -60,8 +52,16 @@
         "source": "/home/cmpickle/AndroidStudioProjects/Basicsms/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/layout/abc_search_view.xml"
     },
     {
+        "merged": "/home/cmpickle/AndroidStudioProjects/Basicsms/app/build/intermediates/res/merged/debug/layout/activity_receive.xml",
+        "source": "/home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/res/layout/activity_receive.xml"
+    },
+    {
         "merged": "/home/cmpickle/AndroidStudioProjects/Basicsms/app/build/intermediates/res/merged/debug/layout/abc_action_menu_layout.xml",
         "source": "/home/cmpickle/AndroidStudioProjects/Basicsms/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/layout/abc_action_menu_layout.xml"
+    },
+    {
+        "merged": "/home/cmpickle/AndroidStudioProjects/Basicsms/app/build/intermediates/res/merged/debug/layout/activity_smsbroadcast_receiver.xml",
+        "source": "/home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/res/layout/activity_smsbroadcast_receiver.xml"
     },
     {
         "merged": "/home/cmpickle/AndroidStudioProjects/Basicsms/app/build/intermediates/res/merged/debug/layout/abc_action_mode_close_item_material.xml",

@@ -32,10 +32,10 @@
             android:name="com.example.cmpickle.basicsms.SendSMSActivity"
             android:label="@string/title_activity_send_sms" >
         </activity>
-        <activity
-            android:name="com.example.cmpickle.basicsms.SMSBroadcastReceiver"
-            android:label="@string/title_activity_smsbroadcast_reciever" >
-        </activity>
+        <!-- <activity -->
+        <!-- android:name=".SMSBroadcastReceiver" -->
+        <!-- android:label="@string/title_activity_smsbroadcast_reciever"> -->
+        <!-- </activity> -->
 
         <receiver
             android:name="com.example.cmpickle.basicsms.SMSBroadcastReceiver"

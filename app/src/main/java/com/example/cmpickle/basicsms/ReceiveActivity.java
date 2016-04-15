@@ -36,7 +36,7 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recieve);
+        setContentView(R.layout.activity_receive);
 
         smsListView = (ListView) findViewById(R.id.SMSList);
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, smsMessageList);

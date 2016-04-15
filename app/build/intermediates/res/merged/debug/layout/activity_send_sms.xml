@@ -5,23 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:weightSum="1">
-    <!--xmlns:tools="http://schemas.android.com/tools"-->
-    <!--tools:context="com.example.cmpickle.basicsms.SendSMSActivity">-->
+    android:weightSum="1"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.cmpickle.basicsms.SendSMSActivity">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Compose New Message"
+        android:text="@string/compose"
         android:textAppearance="?android:attr/textAppearanceLarge"/>
 
     <TextView
         android:id="@+id/textViewPhoneNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Phone Number"/>
+        android:text="@string/phoneNo"/>
 
     <EditText
         android:id="@+id/editTextPhoneNo"
@@ -33,7 +33,7 @@
         android:id="@+id/textViewMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SMS Message"/>
+        android:text="@string/smsMessage"/>
 
     <EditText
         android:id="@+id/editTextSMS"
@@ -45,7 +45,7 @@
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"/>
 
     <LinearLayout
@@ -58,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/inbox"
-            android:layout_gravity="left"
+            android:layout_gravity="start"
             android:layout_weight="1"
             android:onClick="goToInbox"/>
 

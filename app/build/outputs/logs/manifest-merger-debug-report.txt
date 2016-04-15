@@ -67,12 +67,6 @@ ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidMan
 		ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:27:13-60
 	android:name
 		ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:26:13-44
-activity#com.example.cmpickle.basicsms.SMSBroadcastReceiver
-ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:29:9-32:20
-	android:label
-		ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:31:13-73
-	android:name
-		ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:30:13-49
 receiver#com.example.cmpickle.basicsms.SMSBroadcastReceiver
 ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:34:9-40:20
 	android:exported
