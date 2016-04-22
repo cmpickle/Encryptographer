@@ -96,8 +96,7 @@ public class SendSMSActivity extends ActionBarActivity {
      * @param v - The current view
      */
     public void goToInbox(View v) {
-        Intent intent = new Intent(SendSMSActivity.this, ReceiveActivity.class);
-        startActivity(intent);
+        finish();
     }
 
     private void checkIfEmpty() {

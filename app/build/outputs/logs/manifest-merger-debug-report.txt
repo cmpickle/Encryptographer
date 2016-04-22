@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:2:1-48:12
+ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:2:1-50:12
 	xmlns:android
 		ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:3:11-69
 	package
@@ -34,7 +34,7 @@ ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidMan
 	android:name
 		ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:9:22-69
 application
-ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:11:5-46:19
+ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:11:5-48:19
 MERGED from [com.android.support:appcompat-v7:21.0.3] /home/cmpickle/AndroidStudioProjects/Basicsms/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/AndroidManifest.xml:16:5-19
 MERGED from [com.android.support:support-v4:21.0.3] /home/cmpickle/AndroidStudioProjects/Basicsms/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/AndroidManifest.xml:16:5-19
 	android:label
@@ -62,31 +62,35 @@ ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidMan
 	android:name
 		ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:22:27-74
 activity#com.example.cmpickle.basicsms.SendSMSActivity
-ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:25:9-28:20
+ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:25:9-29:20
 	android:label
 		ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:27:13-60
+	android:parentActivityName
+		ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:28:13-58
 	android:name
 		ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:26:13-44
 receiver#com.example.cmpickle.basicsms.SMSBroadcastReceiver
-ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:34:9-40:20
+ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:35:9-41:20
 	android:exported
-		ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:36:13-36
+		ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:37:13-36
 	android:name
-		ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:35:13-49
+		ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:36:13-49
 intent-filter#android.provider.Telephony.SMS_RECIEVED
-ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:37:13-39:29
+ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:38:13-40:29
 	android:priority
-		ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:37:28-50
+		ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:38:28-50
 action#android.provider.Telephony.SMS_RECIEVED
-ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:38:17-81
+ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:39:17-81
 	android:name
-		ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:38:25-79
+		ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:39:25-79
 activity#com.example.cmpickle.basicsms.ConversationActivity
-ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:42:9-45:20
+ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:43:9-47:20
 	android:label
-		ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:44:13-64
+		ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:45:13-64
+	android:parentActivityName
+		ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:46:13-58
 	android:name
-		ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:43:13-49
+		ADDED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml:44:13-49
 uses-sdk
 INJECTED from /home/cmpickle/AndroidStudioProjects/Basicsms/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [com.android.support:appcompat-v7:21.0.3] /home/cmpickle/AndroidStudioProjects/Basicsms/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/AndroidManifest.xml:15:5-42

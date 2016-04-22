@@ -101,8 +101,7 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
     }
 
     public void goToReceive(View v) {
-        Intent intent = new Intent(ConversationActivity.this, ReceiveActivity.class);
-        startActivity(intent);
+        finish();
     }
 
     /**
