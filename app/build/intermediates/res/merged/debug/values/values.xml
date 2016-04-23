@@ -169,7 +169,7 @@
     <string name="title_activity_conversation">ConversationActivity</string>
     <string name="title_activity_receive">ReceiveActivity</string>
     <string name="title_activity_send_sms">SendSMSActivity</string>
-    <string name="title_activity_smsbroadcast_receiver">SMSBroadcastReciever</string>
+    <string name="title_activity_smsbroadcast_receiver">SMSBroadcastReceiver</string>
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:textViewStyle">@style/grayTextView</item>
         <item name="android:background">@color/background</item>
