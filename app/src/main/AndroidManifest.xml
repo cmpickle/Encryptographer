@@ -24,12 +24,13 @@
         </activity>
         <activity
             android:name=".SendSMSActivity"
-            android:label="@string/title_activity_send_sms">
+            android:label="@string/title_activity_send_sms"
+            android:parentActivityName=".ReceiveActivity">
         </activity>
-        <!--<activity-->
-            <!--android:name=".SMSBroadcastReceiver"-->
-            <!--android:label="@string/title_activity_smsbroadcast_reciever">-->
-        <!--</activity>-->
+        <!-- <activity -->
+        <!-- android:name=".SMSBroadcastReceiver" -->
+        <!-- android:label="@string/title_activity_smsbroadcast_reciever"> -->
+        <!-- </activity> -->
 
         <receiver
             android:name=".SMSBroadcastReceiver"
@@ -41,7 +42,10 @@
 
         <activity
             android:name=".ConversationActivity"
-            android:label="@string/title_activity_conversation">
+            android:label="@string/title_activity_conversation"
+            android:parentActivityName=".ReceiveActivity">
+        </activity>
+        <activity android:name=".TestActivity">
         </activity>
     </application>
 
