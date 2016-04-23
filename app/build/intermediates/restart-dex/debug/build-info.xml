@@ -1,43 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instant-run
-    abi="x86_64,x86"
-    api-level="23"
-    density="560dpi"
+    abi="armeabi-v7a,armeabi"
+    api-level="19"
+    density="xhdpi"
     format="7"
-    timestamp="74758335028520" >
+    timestamp="80026785520590" >
 
     <task
         name="javac"
-        duration="195" />
+        duration="72" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="5" />
+        duration="12" />
     <task
         name="verifier"
         duration="1" />
 
     <artifact
-        location="/home/cmpickle/AndroidStudioProjects/Basicsms/app/build/intermediates/res/resources-debug.ap_"
-        type="RESOURCES" />
-    <artifact
-        location="/home/cmpickle/AndroidStudioProjects/Basicsms/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_6/classes.dex"
-        type="DEX" />
+        location="/home/cmpickle/AndroidStudioProjects/Basicsms/app/build/outputs/apk/app-debug.apk"
+        type="MAIN" />
 
-    <build timestamp="72933122934924" >
+    <build timestamp="80026785520590" >
         <artifact
             location="/home/cmpickle/AndroidStudioProjects/Basicsms/app/build/outputs/apk/app-debug.apk"
             type="MAIN" />
-    </build>
-    <build timestamp="74758335028520" >
-        <artifact
-            location="/home/cmpickle/AndroidStudioProjects/Basicsms/app/build/intermediates/res/resources-debug.ap_"
-            type="RESOURCES" />
-        <artifact
-            location="/home/cmpickle/AndroidStudioProjects/Basicsms/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_6/classes.dex"
-            type="DEX" />
     </build>
 
 </instant-run>

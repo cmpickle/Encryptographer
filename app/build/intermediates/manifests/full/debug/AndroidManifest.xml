@@ -51,6 +51,8 @@
             android:label="@string/title_activity_conversation"
             android:parentActivityName="com.example.cmpickle.basicsms.ReceiveActivity" >
         </activity>
+        <activity android:name="com.example.cmpickle.basicsms.TestActivity" >
+        </activity>
     </application>
 
 </manifest>

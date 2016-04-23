@@ -25,12 +25,37 @@ tools:context="com.example.cmpickle.basicsms.ConversationActivity">
     android:layout_weight="1">
 </ListView>
 
-<Button
-    android:layout_gravity="center_horizontal"
-    android:id="@+id/btnReceive"
-    android:text="@string/back"
-    android:layout_width="wrap_content"
+<EditText
+    android:id="@+id/editTextSMS"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:onClick="goToReceive"/>
+    android:minLines="4"
+    android:gravity="top|start"
+    android:inputType="textMultiLine"/>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnReceive"
+            android:text="@string/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_weight="1"
+            android:onClick="goToReceive"/>
+
+        <Button
+            android:id="@+id/btnSendSMS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:text="@string/send"/>
+    </LinearLayout>
 
 </LinearLayout>

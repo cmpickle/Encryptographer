@@ -29,6 +29,14 @@
         android:layout_height="wrap_content"
         android:inputType="phone"/>
 
+    <!--<Button-->
+        <!--android:id="@+id/selectContact"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="end"-->
+        <!--android:layout_weight="1"-->
+        <!--android:text="@string/contact"/>-->
+
     <TextView
         android:id="@+id/textViewMessage"
         android:layout_width="wrap_content"

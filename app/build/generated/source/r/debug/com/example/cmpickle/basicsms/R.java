@@ -1324,10 +1324,10 @@ containing a value of this type.
         public static final int activity_chooser_view_content=0x7f0b0021;
         public static final int always=0x7f0b0016;
         public static final int beginning=0x7f0b0013;
-        public static final int btnCompose=0x7f0b0043;
-        public static final int btnInbox=0x7f0b0048;
-        public static final int btnReceive=0x7f0b0042;
-        public static final int btnSendSMS=0x7f0b0049;
+        public static final int btnCompose=0x7f0b0045;
+        public static final int btnInbox=0x7f0b0049;
+        public static final int btnReceive=0x7f0b0043;
+        public static final int btnSendSMS=0x7f0b0044;
         public static final int checkbox=0x7f0b0029;
         public static final int collapseActionView=0x7f0b0017;
         public static final int decor_content_parent=0x7f0b002f;
@@ -1335,8 +1335,8 @@ containing a value of this type.
         public static final int dialog=0x7f0b001b;
         public static final int disableHome=0x7f0b000c;
         public static final int dropdown=0x7f0b001c;
-        public static final int editTextPhoneNo=0x7f0b0045;
-        public static final int editTextSMS=0x7f0b0047;
+        public static final int editTextPhoneNo=0x7f0b0047;
+        public static final int editTextSMS=0x7f0b0042;
         public static final int edit_query=0x7f0b0033;
         public static final int end=0x7f0b0014;
         public static final int expand_activities_button=0x7f0b0022;
@@ -1374,8 +1374,8 @@ containing a value of this type.
         public static final int submit_area=0x7f0b003c;
         public static final int tabMode=0x7f0b000b;
         public static final int textView=0x7f0b0040;
-        public static final int textViewMessage=0x7f0b0046;
-        public static final int textViewPhoneNumber=0x7f0b0044;
+        public static final int textViewMessage=0x7f0b0048;
+        public static final int textViewPhoneNumber=0x7f0b0046;
         public static final int title=0x7f0b0027;
         public static final int up=0x7f0b0008;
         public static final int useLogo=0x7f0b0012;
@@ -1413,7 +1413,9 @@ containing a value of this type.
         public static final int activity_receive=0x7f030018;
         public static final int activity_send_sms=0x7f030019;
         public static final int activity_smsbroadcast_receiver=0x7f03001a;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001b;
+        public static final int activity_test=0x7f03001b;
+        public static final int contact_item=0x7f03001c;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001d;
     }
     public static final class menu {
         public static final int menu_main=0x7f0c0000;
@@ -1441,15 +1443,16 @@ containing a value of this type.
         public static final int cancel=0x7f050013;
         public static final int compose=0x7f050014;
         public static final int composeNewMessage=0x7f050015;
-        public static final int conversation=0x7f050016;
-        public static final int phoneNo=0x7f050017;
-        public static final int send=0x7f050018;
-        public static final int smsInbox=0x7f050019;
-        public static final int smsMessage=0x7f05001a;
-        public static final int title_activity_conversation=0x7f05001b;
-        public static final int title_activity_receive=0x7f05001c;
-        public static final int title_activity_send_sms=0x7f05001d;
-        public static final int title_activity_smsbroadcast_receiver=0x7f05001e;
+        public static final int contact=0x7f050016;
+        public static final int conversation=0x7f050017;
+        public static final int phoneNo=0x7f050018;
+        public static final int send=0x7f050019;
+        public static final int smsInbox=0x7f05001a;
+        public static final int smsMessage=0x7f05001b;
+        public static final int title_activity_conversation=0x7f05001c;
+        public static final int title_activity_receive=0x7f05001d;
+        public static final int title_activity_send_sms=0x7f05001e;
+        public static final int title_activity_smsbroadcast_receiver=0x7f05001f;
     }
     public static final class style {
         public static final int AppTheme=0x7f090065;
