@@ -8,11 +8,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.provider.ContactsContract;
+import android.support.annotation.RawRes;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -58,12 +60,10 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
         int timeMillis = smsInboxCursor.getColumnIndex("date");
 
         Date date = new Date(timeMillis);
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
-        String dateText = format.format(date);
-//        Date dateText = new Date((int)smsInboxCursor.getLong(smsInboxCursor.getColumnIndex("date")));
+        DateFormat format = SimpleDateFormat.getDateTimeInstance(); //new SimpleDateFormat("dd/MM/yy");
+        String dateText = format.format(timeMillis);
+//        String dateText = /*new Date(*/smsInboxCursor.toString();//.getLong(smsInboxCursor.getColumnIndex("date"))).toString();
 
-//        String[] smsMessages = smsMessageList.get(indexAddress).split("\n");
-//        String name = getContactDisplayNameByNumber(smsMessages[0]);
 
         if(indexBody < 0 || !smsInboxCursor.moveToFirst())
             return;
@@ -71,7 +71,7 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
         arrayAdapter.clear();
 
         do {
-            String str = getContactDisplayNameByNumber(smsInboxCursor.getString(indexAddress)) + "\n"
+            String str = ContactLookup.getContactDisplayNameByNumber(smsInboxCursor.getString(indexAddress), this) + "\n"
                     + smsInboxCursor.getString(indexBody) + "\n" + dateText + "\n";
             phoneNum.add(smsInboxCursor.getString(indexAddress));
             arrayAdapter.add(str);
@@ -89,7 +89,7 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
     {
         Intent intent = new Intent(ReceiveActivity.this, ConversationActivity.class);
-        String[] smsMessages = smsMessageList.get(position).split("\n");
+//        String[] smsMessages = smsMessageList.get(position).split("\n");
         intent.putExtra("phoneNum", phoneNum.get(position));
         startActivity(intent);
     }
@@ -99,26 +99,4 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
         startActivity(intent);
     }
 
-    public String getContactDisplayNameByNumber(String number) {
-        Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(number));
-        String name = "" + number;
-
-        ContentResolver contentResolver = getContentResolver();
-        Cursor contactLookup = contentResolver.query(uri, new String[] {BaseColumns._ID,
-                ContactsContract.PhoneLookup.DISPLAY_NAME }, null, null, null);
-
-        try {
-            if (contactLookup != null && contactLookup.getCount() > 0) {
-                contactLookup.moveToNext();
-                name = contactLookup.getString(contactLookup.getColumnIndex(ContactsContract.Data.DISPLAY_NAME));
-                //String contactId = contactLookup.getString(contactLookup.getColumnIndex(BaseColumns._ID));
-            }
-        } finally {
-            if (contactLookup != null) {
-                contactLookup.close();
-            }
-        }
-
-        return name;
-    }
 }
