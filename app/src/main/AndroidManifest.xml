@@ -45,8 +45,6 @@
             android:label="@string/title_activity_conversation"
             android:parentActivityName=".ReceiveActivity">
         </activity>
-        <activity android:name=".TestActivity">
-        </activity>
     </application>
 
 </manifest>

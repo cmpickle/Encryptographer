@@ -1,7 +1,7 @@
 package com.example.cmpickle.basicsms;
 
+import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -10,18 +10,18 @@ import android.telephony.SmsManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.Random;
 
 public class SendSMSActivity extends ActionBarActivity {
 
     Button sendSmsBtn;
     EditText toPhoneNumber;
     EditText smsMessageET;
+
+    static final int PICK_CONTACT_REQUEST = 1;
 
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
@@ -65,6 +65,23 @@ public class SendSMSActivity extends ActionBarActivity {
                 sendSms();
             }
         });
+
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        inputManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if(requestCode == PICK_CONTACT_REQUEST) {
+            if(resultCode == RESULT_OK) {
+                Uri pickedPhoneNumber = intent.getData();
+
+                toPhoneNumber.setText(ContactLookup.getNumberByURI(pickedPhoneNumber, this));
+            }
+        }
     }
 
     /**
@@ -74,7 +91,7 @@ public class SendSMSActivity extends ActionBarActivity {
     private void sendSms() {
 
         String toPhone = toPhoneNumber.getText().toString();
-        String smsMessage = encode(smsMessageET.getText().toString());
+        String smsMessage = Encryption.encode(smsMessageET.getText().toString());
 
         if(toPhone.isEmpty() || smsMessage.isEmpty())
             return;
@@ -115,86 +132,9 @@ public class SendSMSActivity extends ActionBarActivity {
             b.setEnabled(true);
     }
 
-    /**
-     * Encodes a string.
-     *
-     * @param input
-     *            --The string to be encoded
-     * @return --Encoded version of the string
-     */
-    private static String encode(String input)
-    {
-        Random rand = new Random(42);
-        char[] letters = new char[input.length()];
-        String result = "";
-
-        // Copies over the characters of the string input to the char[] letters
-
-        for(int i = 0; i < input.length(); i++)
-            letters[i] = input.charAt(i);
-
-        // modifies the Char[]
-
-        for(int j = 0; j < input.length(); j++)
-        {
-            // modifies the ASCII value of each char by adding 47 then
-            // multiplies it by two
-
-            letters[j] = (char) ((letters[j] + 47) * 2);
-            if(j % 3 == 0 || j % 3 == 2)
-            {
-                letters[j] += 1;
-                letters[j] *= 2;
-            }
-            letters[j] += rand.nextInt(100);
-        }
-
-        // Appends the chars from letters to the end of the blank string result
-        // to achieve the encoded string
-
-        for (int k = 0; k < input.length(); k++)
-            result += letters[k];
-
-        // returns the encoded string
-
-        return result;
+    public void doLaunchContactPicker(View view) {
+        Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+        contactPickerIntent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+        startActivityForResult(contactPickerIntent, PICK_CONTACT_REQUEST);
     }
-
-
-//    Button buttonPickContact = (Button)findViewById(R.id.selectContact);
-//    buttonPickContact.OnClickListener(new Button.OnClickListener(){
-//
-//        @Override
-//        public void onClick(View arg0) {
-//            // TODO Auto-generated method stub
-//
-//
-//            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-//            intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
-//            startActivityForResult(intent, 1);
-//
-//
-//        }});
-//
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        // TODO Auto-generated method stub
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if(requestCode == RQS_PICK_CONTACT){
-//            if(resultCode == RESULT_OK){
-//                Uri contactData = data.getData();
-//                Cursor cursor =  managedQuery(contactData, null, null, null, null);
-//                cursor.moveToFirst();
-//
-//                String number = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
-//
-//                //contactName.setText(name);
-//                toPhoneNumber.setText(number);
-//                //contactEmail.setText(email);
-//            }
-//        }
-//    }
-
 }

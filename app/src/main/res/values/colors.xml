@@ -2,6 +2,7 @@
 <resources>
     <color name="background">#111111</color>
     <color name="text">#cccccc</color>
+    <color name="textHint">#666666</color>
     <color name="buttonText">#000000</color>
     <color name="button">#555555</color>
 </resources>
