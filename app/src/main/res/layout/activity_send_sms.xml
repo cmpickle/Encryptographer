@@ -23,19 +23,29 @@
         android:layout_height="wrap_content"
         android:text="@string/phoneNo"/>
 
-    <EditText
-        android:id="@+id/editTextPhoneNo"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="phone"/>
+        android:orientation="horizontal">
 
-    <!--<Button-->
-        <!--android:id="@+id/selectContact"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="end"-->
-        <!--android:layout_weight="1"-->
-        <!--android:text="@string/contact"/>-->
+        <EditText
+            android:id="@+id/editTextPhoneNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:inputType="phone"
+            android:hint="@string/to"/>
+
+        <Button
+            android:id="@+id/selectContact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="0"
+            android:text="@string/contact"
+            android:onClick="doLaunchContactPicker"/>
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textViewMessage"
@@ -49,7 +59,8 @@
         android:layout_height="wrap_content"
         android:minLines="4"
         android:gravity="top|start"
-        android:inputType="textMultiLine"/>
+        android:inputType="textMultiLine"
+        android:hint="@string/typeMessage"/>
 
     <Space
         android:layout_width="match_parent"

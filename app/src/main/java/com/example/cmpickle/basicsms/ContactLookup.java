@@ -31,4 +31,27 @@ public class ContactLookup {
 
         return name;
     }
+
+    public static String getNumberByURI(Uri uri, Context context) {
+
+        String number = "";
+
+        ContentResolver contentResolver = context.getContentResolver();
+        Cursor contactLookup = contentResolver.query(uri, new String[] {BaseColumns._ID,
+                ContactsContract.CommonDataKinds.Phone.DATA }, null, null, null);
+
+        try {
+            if (contactLookup != null && contactLookup.getCount() > 0) {
+                contactLookup.moveToNext();
+                number = contactLookup.getString(contactLookup.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DATA));
+                //String contactId = contactLookup.getString(contactLookup.getColumnIndex(BaseColumns._ID));
+            }
+        } finally {
+            if (contactLookup != null) {
+                contactLookup.close();
+            }
+        }
+
+        return number;
+    }
 }

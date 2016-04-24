@@ -14,6 +14,7 @@
 
     <style name="greyEditText" parent="android:Widget.EditText">
         <item name="android:textColor">@color/text</item>
+        <item name="android:textColorHint">@color/textHint</item>
     </style>
 
     <style name="buttonStyle" parent="android:Widget.Button">

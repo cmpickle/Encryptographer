@@ -6,9 +6,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.BaseColumns;
-import android.provider.ContactsContract;
-import android.support.annotation.RawRes;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -61,7 +58,7 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
 
         Date date = new Date(timeMillis);
         DateFormat format = SimpleDateFormat.getDateTimeInstance(); //new SimpleDateFormat("dd/MM/yy");
-        String dateText = format.format(timeMillis);
+        String dateText = format.format(date);
 //        String dateText = /*new Date(*/smsInboxCursor.toString();//.getLong(smsInboxCursor.getColumnIndex("date"))).toString();
 
 

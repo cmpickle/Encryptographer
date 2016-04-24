@@ -1,11 +1,16 @@
 package com.example.cmpickle.basicsms;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.telephony.SmsManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,6 +20,8 @@ public class SendSMSActivity extends ActionBarActivity {
     Button sendSmsBtn;
     EditText toPhoneNumber;
     EditText smsMessageET;
+
+    static final int PICK_CONTACT_REQUEST = 1;
 
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
@@ -58,6 +65,23 @@ public class SendSMSActivity extends ActionBarActivity {
                 sendSms();
             }
         });
+
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        inputManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        if(requestCode == PICK_CONTACT_REQUEST) {
+            if(resultCode == RESULT_OK) {
+                Uri pickedPhoneNumber = intent.getData();
+
+                toPhoneNumber.setText(ContactLookup.getNumberByURI(pickedPhoneNumber, this));
+            }
+        }
     }
 
     /**
@@ -108,40 +132,9 @@ public class SendSMSActivity extends ActionBarActivity {
             b.setEnabled(true);
     }
 
-//    Button buttonPickContact = (Button)findViewById(R.id.selectContact);
-//    buttonPickContact.OnClickListener(new Button.OnClickListener(){
-//
-//        @Override
-//        public void onClick(View arg0) {
-//            // TODO Auto-generated method stub
-//
-//
-//            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-//            intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
-//            startActivityForResult(intent, 1);
-//
-//
-//        }});
-//
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        // TODO Auto-generated method stub
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if(requestCode == RQS_PICK_CONTACT){
-//            if(resultCode == RESULT_OK){
-//                Uri contactData = data.getData();
-//                Cursor cursor =  managedQuery(contactData, null, null, null, null);
-//                cursor.moveToFirst();
-//
-//                String number = cursor.getString(cursor.getColumnIndexOrThrow(ContactsContract.CommonDataKinds.Phone.NUMBER));
-//
-//                //contactName.setText(name);
-//                toPhoneNumber.setText(number);
-//                //contactEmail.setText(email);
-//            }
-//        }
-//    }
-
+    public void doLaunchContactPicker(View view) {
+        Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+        contactPickerIntent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+        startActivityForResult(contactPickerIntent, PICK_CONTACT_REQUEST);
+    }
 }
