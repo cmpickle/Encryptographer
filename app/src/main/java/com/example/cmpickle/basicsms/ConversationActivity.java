@@ -66,6 +66,12 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        refreshSmsInbox();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
