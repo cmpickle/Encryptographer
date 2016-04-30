@@ -35,6 +35,12 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        refreshSmsInbox();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);

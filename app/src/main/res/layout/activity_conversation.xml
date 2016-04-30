@@ -32,6 +32,7 @@ tools:context="com.example.cmpickle.basicsms.ConversationActivity">
     android:layout_height="wrap_content"
     android:minLines="4"
     android:gravity="top|start"
+    android:hint="@string/typeMessage"
     android:inputType="textMultiLine"/>
 
 
