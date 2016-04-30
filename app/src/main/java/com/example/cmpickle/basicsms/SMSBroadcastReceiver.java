@@ -16,19 +16,16 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
     public static final String SMS_BUNDLE = "pdus";
 
     @Override
-    public void onReceive(Context context, Intent intent)
-    {
+    public void onReceive(Context context, Intent intent) {
         Toast.makeText(context, "Got to onRecieve!", Toast.LENGTH_SHORT).show();
 
         Bundle intentExtras = intent.getExtras();
 
-        if(intentExtras != null)
-        {
+        if(intentExtras != null) {
             Object[] sms = (Object[]) intentExtras.get(SMS_BUNDLE);
             String smsMessageStr = "";
 
-            for(int i = 0; i < sms.length; i++)
-            {
+            for(int i = 0; i < sms.length; i++) {
                 SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) sms[i]);
 
                 String smsBody = smsMessage.getMessageBody();
