@@ -9,19 +9,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.cmpickle.basicsms.SendSMSActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/compose"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/Widget.AppCompat.ActionBar.Solid">
 
-    <TextView
-        android:id="@+id/textViewPhoneNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/phoneNo"/>
+        <ImageButton
+            android:id="@+id/btnInbox"
+            android:src="@drawable/ic_arrow_back_white"
+            android:background="@color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:layout_gravity="start"
+            android:layout_weight="1"
+            android:onClick="goToInbox"/>
+
+        <TextView
+            android:id="@+id/textView"
+            android:background="@color/transparent"
+            android:textSize="40sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/compose"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,8 +53,10 @@
             android:inputType="phone"
             android:hint="@string/to"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/selectContact"
+            android:src="@drawable/ic_contacts_white"
+            android:background="@color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -46,21 +65,6 @@
             android:onClick="doLaunchContactPicker"/>
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/textViewMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/smsMessage"/>
-
-    <EditText
-        android:id="@+id/editTextSMS"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minLines="4"
-        android:gravity="top|start"
-        android:inputType="textMultiLine"
-        android:hint="@string/typeMessage"/>
 
     <Space
         android:layout_width="match_parent"
@@ -72,21 +76,24 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btnInbox"
+        <EditText
+            android:id="@+id/editTextSMS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cancel"
-            android:layout_gravity="start"
-            android:layout_weight="1"
-            android:onClick="goToInbox"/>
+            android:minLines="1"
+            android:gravity="top|start"
+            android:layout_weight="3"
+            android:hint="@string/typeMessage"
+            android:inputType="textMultiLine"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/btnSendSMS"
+            android:src="@drawable/ic_send_white"
+            android:background="@color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_weight="1"
+            android:layout_weight="0"
             android:text="@string/send"/>
     </LinearLayout>
 

@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -32,7 +33,7 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
     ArrayAdapter arrayAdapter;
 
 
-    Button sendSmsBtn;
+    ImageButton sendSmsBtn;
     EditText smsMessageET;
 
     private TextWatcher textWatcher = new TextWatcher() {
@@ -88,7 +89,7 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
         refreshSmsInbox();
 
 
-        sendSmsBtn = (Button) findViewById(R.id.btnSendSMS);
+        sendSmsBtn = (ImageButton) findViewById(R.id.btnSendSMS);
         smsMessageET = (EditText) findViewById(R.id.editTextSMS);
 
         smsMessageET.addTextChangedListener(textWatcher);
@@ -125,6 +126,7 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
                 str = "Me" + "\n" + smsInboxCursor.getString(indexBody) + "\n" + dateText + "\n";
             else
                 str = name + "\n" + smsInboxCursor.getString(indexBody) + "\n" + dateText + "\n";
+
             arrayAdapter.add(str);
         } while(smsInboxCursor.moveToNext());
 
@@ -132,7 +134,7 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
     }
 
     public void updateList(final String smsMessage) {
-        arrayAdapter.insert(smsMessage, 0);
+        arrayAdapter.insert(smsMessage, arrayAdapter.getCount()-1);
         arrayAdapter.notifyDataSetChanged();
     }
 
@@ -192,7 +194,7 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
     }
 
     private void checkIfEmpty() {
-        Button b = (Button) findViewById(R.id.btnSendSMS);
+        ImageButton b = (ImageButton) findViewById(R.id.btnSendSMS);
 
         if(smsMessageET.getText().toString().trim().isEmpty())
             b.setEnabled(false);
