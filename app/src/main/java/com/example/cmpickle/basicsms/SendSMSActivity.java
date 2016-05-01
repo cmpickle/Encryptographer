@@ -1,11 +1,11 @@
 package com.example.cmpickle.basicsms;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.support.v7.app.ActionBarActivity;
 import android.telephony.SmsManager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,11 +13,12 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
-public class SendSMSActivity extends ActionBarActivity {
+public class SendSMSActivity extends Activity {
 
-    Button sendSmsBtn;
+    ImageButton sendSmsBtn;
     EditText toPhoneNumber;
     EditText smsMessageET;
 
@@ -49,7 +50,7 @@ public class SendSMSActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_sms);
 
-        sendSmsBtn = (Button) findViewById(R.id.btnSendSMS);
+        sendSmsBtn = (ImageButton) findViewById(R.id.btnSendSMS);
         toPhoneNumber = (EditText) findViewById(R.id.editTextPhoneNo);
         smsMessageET = (EditText) findViewById(R.id.editTextSMS);
 
@@ -121,7 +122,7 @@ public class SendSMSActivity extends ActionBarActivity {
     }
 
     private void checkIfEmpty() {
-        Button b = (Button) findViewById(R.id.btnSendSMS);
+        ImageButton b = (ImageButton) findViewById(R.id.btnSendSMS);
 
         String s1 = toPhoneNumber.getText().toString();
         String s2 = smsMessageET.getText().toString();
