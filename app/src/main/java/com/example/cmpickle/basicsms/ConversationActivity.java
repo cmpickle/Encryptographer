@@ -44,6 +44,8 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
     ImageButton sendSmsBtn;
     EditText smsMessageET;
 
+    String name;
+
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after)
@@ -94,6 +96,8 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
         conversationBundle = getIntent().getExtras();
         phoneNo = conversationBundle.getString("phoneNum");
 
+        name = ContactLookup.getContactDisplayNameByNumber(phoneNo, this);
+
         refreshSmsInbox();
 
 
@@ -122,8 +126,6 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
         Date date = new Date(timeMillis);
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
         String dateText = format.format(date);
-
-        String name = ContactLookup.getContactDisplayNameByNumber(phoneNo, this);
 
         if(indexBody < 0 || !smsInboxCursor.moveToFirst())
             return;
@@ -208,11 +210,9 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
 
         if(smsMessageET.getText().toString().trim().isEmpty()) {
             setImageButtonEnabled(this, false, b, R.drawable.ic_send_white);
-//            b.setEnabled(false);
         }
         else {
             setImageButtonEnabled(this, true, b, R.drawable.ic_send_white);
-//            b.setEnabled(true);
         }
     }
 

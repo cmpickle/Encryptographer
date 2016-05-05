@@ -3,9 +3,13 @@ package com.example.cmpickle.basicsms;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v4.content.res.ResourcesCompat;
 import android.telephony.SmsManager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -127,10 +131,45 @@ public class SendSMSActivity extends Activity {
         String s1 = toPhoneNumber.getText().toString();
         String s2 = smsMessageET.getText().toString();
 
-        if(s1.trim().isEmpty() || s2.trim().isEmpty())
-            b.setEnabled(false);
-        else
-            b.setEnabled(true);
+        if(s1.trim().isEmpty() || s2.trim().isEmpty()) {
+            setImageButtonEnabled(this, false, b, R.drawable.ic_send_white);
+        }
+        else {
+            setImageButtonEnabled(this, true, b, R.drawable.ic_send_white);
+        }
+    }
+
+    /**
+     * Sets the specified image buttonto the given state, while modifying or
+     * "graying-out" the icon as well
+     *
+     * @param enabled The state of the menu item
+     * @param item The menu item to modify
+     * @param iconResId The icon ID
+     */
+    public static void setImageButtonEnabled(Context ctxt, boolean enabled, ImageButton item,
+                                             int iconResId) {
+        item.setEnabled(enabled);
+        Drawable originalIcon = ResourcesCompat.getDrawable(ctxt.getResources(), iconResId, null);
+        Drawable icon = enabled ? originalIcon : convertDrawableToGrayScale(originalIcon);
+        item.setImageDrawable(icon);
+    }
+
+    /**
+     * Mutates and applies a filter that converts the given drawable to a Gray
+     * image. This method may be used to simulate the color of disable icons in
+     * Honeycomb's ActionBar.
+     *
+     * @return a mutated version of the given drawable with a color filter
+     *         applied.
+     */
+    public static Drawable convertDrawableToGrayScale(Drawable drawable) {
+        if (drawable == null) {
+            return null;
+        }
+        Drawable res = drawable.mutate();
+        res.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+        return res;
     }
 
     public void doLaunchContactPicker(View view) {
