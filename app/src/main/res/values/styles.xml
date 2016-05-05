@@ -11,6 +11,7 @@
         <item name="android:background">@color/background</item>
         <item name="android:editTextStyle">@style/greyEditText</item>
         <item name="android:buttonStyle">@style/buttonStyle</item>
+        <item name="android:typeface">serif</item>
     </style>
 
     <style name="grayTextView" parent="android:Widget.TextView">

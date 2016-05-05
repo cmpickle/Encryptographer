@@ -3,9 +3,14 @@ package com.example.cmpickle.basicsms;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.res.ResourcesCompat;
 import android.telephony.SmsManager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,7 +22,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -152,7 +160,9 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
 
             String smsMessageStr = address + "\n";
             smsMessageStr += Encryption.decode(smsMessage);
-            Toast.makeText(this, smsMessageStr, Toast.LENGTH_LONG).show();
+
+            MyToast.show(this, smsMessageStr, true);
+            //Toast.makeText(this, smsMessageStr, Toast.LENGTH_LONG).show();
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -196,10 +206,47 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
     private void checkIfEmpty() {
         ImageButton b = (ImageButton) findViewById(R.id.btnSendSMS);
 
-        if(smsMessageET.getText().toString().trim().isEmpty())
-            b.setEnabled(false);
-        else
-            b.setEnabled(true);
+        if(smsMessageET.getText().toString().trim().isEmpty()) {
+            setImageButtonEnabled(this, false, b, R.drawable.ic_send_white);
+//            b.setEnabled(false);
+        }
+        else {
+            setImageButtonEnabled(this, true, b, R.drawable.ic_send_white);
+//            b.setEnabled(true);
+        }
+    }
+
+    /**
+     * Sets the specified image buttonto the given state, while modifying or
+     * "graying-out" the icon as well
+     *
+     * @param enabled The state of the menu item
+     * @param item The menu item to modify
+     * @param iconResId The icon ID
+     */
+    public static void setImageButtonEnabled(Context ctxt, boolean enabled, ImageButton item,
+                                             int iconResId) {
+        item.setEnabled(enabled);
+        Drawable originalIcon = ResourcesCompat.getDrawable(ctxt.getResources(), iconResId, null);
+        Drawable icon = enabled ? originalIcon : convertDrawableToGrayScale(originalIcon);
+        item.setImageDrawable(icon);
+    }
+
+    /**
+     * Mutates and applies a filter that converts the given drawable to a Gray
+     * image. This method may be used to simulate the color of disable icons in
+     * Honeycomb's ActionBar.
+     *
+     * @return a mutated version of the given drawable with a color filter
+     *         applied.
+     */
+    public static Drawable convertDrawableToGrayScale(Drawable drawable) {
+        if (drawable == null) {
+            return null;
+        }
+        Drawable res = drawable.mutate();
+        res.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+        return res;
     }
 
 }

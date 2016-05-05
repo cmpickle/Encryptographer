@@ -51,7 +51,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="phone"
-            android:hint="@string/to"/>
+            android:hint="@string/to"
+            android:textColorHint="@color/textHint"/>
 
         <ImageButton
             android:id="@+id/selectContact"
@@ -84,6 +85,7 @@
             android:gravity="top|start"
             android:layout_weight="3"
             android:hint="@string/typeMessage"
+            android:textColorHint="@color/textHint"
             android:inputType="textMultiLine"/>
 
         <ImageButton

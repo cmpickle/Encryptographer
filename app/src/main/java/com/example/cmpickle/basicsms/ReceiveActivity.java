@@ -51,6 +51,8 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
         smsListView.setAdapter(arrayAdapter);
         smsListView.setOnItemClickListener(this);
 
+        TypefaceUtil.overrideFont(getApplicationContext(), "SERIF", "fonts/TerminusTTF-4.40.1.ttf"); // font from assets: "assets/fonts/Roboto-Regular.ttf
+
         refreshSmsInbox();
     }
 
