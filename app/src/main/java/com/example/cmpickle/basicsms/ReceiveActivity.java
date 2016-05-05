@@ -15,6 +15,7 @@ import android.widget.ListView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class ReceiveActivity extends Activity implements AdapterView.OnItemClickListener {
@@ -52,14 +53,13 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
     public void refreshSmsInbox() {
         ContentResolver contentResolver = getContentResolver();
         Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address IS NOT NULL) GROUP BY (address", null, null);
-
+        Calendar cal = Calendar.getInstance();
         int indexBody = smsInboxCursor.getColumnIndex("body");
         int indexAddress = smsInboxCursor.getColumnIndex("address");
         int timeMillis = smsInboxCursor.getColumnIndex("date");
 
-        Date date = new Date(timeMillis);
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
-        String dateText = format.format(date);
+        cal.set(1969, 12, 31, 17, 0);
+        long baseTime = cal.getTimeInMillis();
 //        Date dateText = new Date((int)smsInboxCursor.getLong(smsInboxCursor.getColumnIndex("date")));
 
 //        String[] smsMessages = smsMessageList.get(indexAddress).split("\n");
@@ -71,6 +71,12 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
         arrayAdapter.clear();
 
         do {
+            String dateString = smsInboxCursor.getString(timeMillis);
+            long dateTime = Long.valueOf(dateString);
+            long finalTime = dateTime + baseTime;
+            Date date = new Date(finalTime);
+            SimpleDateFormat format = new SimpleDateFormat("MM/dd h:mm aa");
+            String dateText = format.format(date);
             String str = getContactDisplayNameByNumber(smsInboxCursor.getString(indexAddress)) + "\n"
                     + smsInboxCursor.getString(indexBody) + "\n" + dateText + "\n";
             phoneNum.add(smsInboxCursor.getString(indexAddress));

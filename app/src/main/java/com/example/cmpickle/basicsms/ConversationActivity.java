@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
@@ -105,14 +106,17 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
     }
 
     public void refreshSmsInbox() {
+        Calendar cal = Calendar.getInstance();
         ContentResolver contentResolver = getContentResolver();
         Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms"), null, " address = \'" + bundle + "\'", null, null);
         int indexBody = smsInboxCursor.getColumnIndex("body");
         int indexType = smsInboxCursor.getColumnIndex("type");
         int timeMillis = smsInboxCursor.getColumnIndex("date");
-        Date date = new Date(timeMillis);
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy");
-        String dateText = format.format(date);
+
+        cal.set(1969, 12, 31, 17, 0);
+        long baseTime = cal.getTimeInMillis();
+
+
 
         String name = getContactDisplayNameByNumber(bundle);
 
@@ -121,6 +125,12 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
         arrayAdapter.clear();
         do {
             String str;
+            String dateString = smsInboxCursor.getString(timeMillis);
+            long dateTime = Long.valueOf(dateString);
+            long finalTime = dateTime + baseTime;
+            Date date = new Date(finalTime);
+            SimpleDateFormat format = new SimpleDateFormat("MM/dd h:mm aa");
+            String dateText = format.format(date);
             if(smsInboxCursor.getInt(indexType)==2)
                 str = "Me" + "\n" + smsInboxCursor.getString(indexBody) + "\n" + dateText + "\n";
             else
