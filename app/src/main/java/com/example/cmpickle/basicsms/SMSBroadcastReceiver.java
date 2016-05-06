@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.telephony.SmsMessage;
 import android.widget.Toast;
 
@@ -17,17 +16,16 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
     public static final String SMS_BUNDLE = "pdus";
 
     @Override
-    public void onReceive(Context context, Intent intent)
-    {
+    public void onReceive(Context context, Intent intent) {
+        Toast.makeText(context, "Got to onRecieve!", Toast.LENGTH_SHORT).show();
+
         Bundle intentExtras = intent.getExtras();
 
-        if(intentExtras != null)
-        {
+        if(intentExtras != null) {
             Object[] sms = (Object[]) intentExtras.get(SMS_BUNDLE);
             String smsMessageStr = "";
 
-            for(int i = 0; i < sms.length; i++)
-            {
+            for(int i = 0; i < sms.length; i++) {
                 SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) sms[i]);
 
                 String smsBody = smsMessage.getMessageBody();
@@ -38,8 +36,11 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
                 AtomicReference<SimpleDateFormat> format = new AtomicReference<>(new SimpleDateFormat("dd/MM/yy"));
                 String dateText = format.get().format(date);
 
-                smsMessageStr += address + " at " + "\t" + dateText + "\n";
-                smsMessageStr += smsBody + "\n";
+//                smsMessageStr += address + " at " + "\t" + dateText + "\n";
+//                smsMessageStr += smsBody + "\n";
+
+                smsMessageStr = ContactLookup.getContactDisplayNameByNumber(address, context) + "\n"
+                        + smsBody + "\n" + dateText + "\n";
             }
 
             Toast.makeText(context, smsMessageStr, Toast.LENGTH_SHORT).show();
@@ -48,6 +49,7 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
             if(inst != null)
                 inst.updateList(smsMessageStr);
         }
-    }
 
+        ReceiveActivity.instance().refreshSmsInbox();
+    }
 }

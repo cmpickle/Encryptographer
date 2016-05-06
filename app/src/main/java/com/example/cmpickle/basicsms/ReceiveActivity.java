@@ -6,13 +6,12 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.BaseColumns;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,6 +36,12 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        refreshSmsInbox();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -46,6 +51,8 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
         arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, smsMessageList);
         smsListView.setAdapter(arrayAdapter);
         smsListView.setOnItemClickListener(this);
+
+        TypefaceUtil.overrideFont(getApplicationContext(), "SERIF", "fonts/TerminusTTF-4.40.1.ttf"); // font from assets: "assets/fonts/Roboto-Regular.ttf
 
         refreshSmsInbox();
     }
@@ -60,10 +67,6 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
 
         cal.set(1969, 12, 31, 17, 0);
         long baseTime = cal.getTimeInMillis();
-//        Date dateText = new Date((int)smsInboxCursor.getLong(smsInboxCursor.getColumnIndex("date")));
-
-//        String[] smsMessages = smsMessageList.get(indexAddress).split("\n");
-//        String name = getContactDisplayNameByNumber(smsMessages[0]);
 
         if(indexBody < 0 || !smsInboxCursor.moveToFirst())
             return;
@@ -77,7 +80,7 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
             Date date = new Date(finalTime);
             SimpleDateFormat format = new SimpleDateFormat("MM/dd h:mm aa");
             String dateText = format.format(date);
-            String str = getContactDisplayNameByNumber(smsInboxCursor.getString(indexAddress)) + "\n"
+            String str = ContactLookup.getContactDisplayNameByNumber(smsInboxCursor.getString(indexAddress), this) + "\n"
                     + smsInboxCursor.getString(indexBody) + "\n" + dateText + "\n";
             phoneNum.add(smsInboxCursor.getString(indexAddress));
             arrayAdapter.add(str);
@@ -95,7 +98,7 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
     {
         Intent intent = new Intent(ReceiveActivity.this, ConversationActivity.class);
-        String[] smsMessages = smsMessageList.get(position).split("\n");
+//        String[] smsMessages = smsMessageList.get(position).split("\n");
         intent.putExtra("phoneNum", phoneNum.get(position));
         startActivity(intent);
     }
@@ -105,26 +108,4 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
         startActivity(intent);
     }
 
-    public String getContactDisplayNameByNumber(String number) {
-        Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(number));
-        String name = "" + number;
-
-        ContentResolver contentResolver = getContentResolver();
-        Cursor contactLookup = contentResolver.query(uri, new String[] {BaseColumns._ID,
-                ContactsContract.PhoneLookup.DISPLAY_NAME }, null, null, null);
-
-        try {
-            if (contactLookup != null && contactLookup.getCount() > 0) {
-                contactLookup.moveToNext();
-                name = contactLookup.getString(contactLookup.getColumnIndex(ContactsContract.Data.DISPLAY_NAME));
-                //String contactId = contactLookup.getString(contactLookup.getColumnIndex(BaseColumns._ID));
-            }
-        } finally {
-            if (contactLookup != null) {
-                contactLookup.close();
-            }
-        }
-
-        return name;
-    }
 }

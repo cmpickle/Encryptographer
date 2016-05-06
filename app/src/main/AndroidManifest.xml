@@ -27,15 +27,13 @@
             android:label="@string/title_activity_send_sms"
             android:parentActivityName=".ReceiveActivity">
         </activity>
-        <!-- <activity -->
-        <!-- android:name=".SMSBroadcastReceiver" -->
-        <!-- android:label="@string/title_activity_smsbroadcast_reciever"> -->
-        <!-- </activity> -->
 
         <receiver
             android:name=".SMSBroadcastReceiver"
+            android:permission="android.permission.BROADCAST_SMS"
+            android:enabled="true"
             android:exported="true">
-            <intent-filter android:priority="999">
+            <intent-filter android:priority="2147483647">
                 <action android:name="android.provider.Telephony.SMS_RECIEVED"/>
             </intent-filter>
         </receiver>
@@ -44,8 +42,6 @@
             android:name=".ConversationActivity"
             android:label="@string/title_activity_conversation"
             android:parentActivityName=".ReceiveActivity">
-        </activity>
-        <activity android:name=".TestActivity">
         </activity>
     </application>
 

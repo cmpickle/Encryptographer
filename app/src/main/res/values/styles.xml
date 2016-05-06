@@ -1,11 +1,17 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
         <item name="android:textViewStyle">@style/grayTextView</item>
         <item name="android:background">@color/background</item>
         <item name="android:editTextStyle">@style/greyEditText</item>
         <item name="android:buttonStyle">@style/buttonStyle</item>
+        <item name="android:typeface">serif</item>
     </style>
 
     <style name="grayTextView" parent="android:Widget.TextView">
@@ -14,6 +20,7 @@
 
     <style name="greyEditText" parent="android:Widget.EditText">
         <item name="android:textColor">@color/text</item>
+        <item name="android:textColorHint">@color/textHint</item>
     </style>
 
     <style name="buttonStyle" parent="android:Widget.Button">

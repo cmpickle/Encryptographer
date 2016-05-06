@@ -7,6 +7,8 @@
     <string name="composeNewMessage">Compose New Message</string>
     <string name="compose">Compose</string>
     <string name="phoneNo">Phone Number</string>
+    <string name="to">To</string>
+    <string name="typeMessage">Type Message...</string>
     <string name="smsMessage">SMS Message</string>
     <string name="smsInbox">Inbox</string>
     <string name="back">Back</string>
@@ -16,6 +18,6 @@
     <string name="title_activity_send_sms">SendSMSActivity</string>
     <string name="title_activity_smsbroadcast_receiver">SMSBroadcastReceiver</string>
     <string name="title_activity_conversation">ConversationActivity</string>
-    <string name="contact">Contacts</string>
+    <string name="contact">  +  </string>
 
 </resources>
