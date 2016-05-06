@@ -1,0 +1,81 @@
+package com.example.cmpickle.basicsms;
+
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.res.ResourcesCompat;
+import android.telephony.SmsManager;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Toast;
+
+public class SendSMS {
+    public static void sendSms(Context context, String toPhone, String smsMessage) {
+        if(toPhone.isEmpty() || smsMessage.isEmpty())
+            return;
+
+        try {
+            //SmsManager is used to send sms messages
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(toPhone, null, smsMessage, null, null);
+
+            //notify user that the sms was sent
+            Toast.makeText(context, "SMS sent", Toast.LENGTH_LONG).show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void checkIfEmpty(Context context, ImageButton b, EditText smsMessageET) {
+        if(smsMessageET.getText().toString().trim().isEmpty()) {
+            setImageButtonEnabled(context, false, b, R.drawable.ic_send_white);
+        }
+        else {
+            setImageButtonEnabled(context, true, b, R.drawable.ic_send_white);
+        }
+    }
+
+    public static void checkIfEmpty(Context context, ImageButton b, EditText toPhone, EditText smsMessageET) {
+        if(smsMessageET.getText().toString().trim().isEmpty() || toPhone.getText().toString().trim().isEmpty()) {
+            setImageButtonEnabled(context, false, b, R.drawable.ic_send_white);
+        }
+        else {
+            setImageButtonEnabled(context, true, b, R.drawable.ic_send_white);
+        }
+    }
+
+    /**
+     * Sets the specified image button to the given state, while modifying or
+     * "graying-out" the icon as well
+     *
+     * @param enabled The state of the menu item
+     * @param item The menu item to modify
+     * @param iconResId The icon ID
+     */
+    public static void setImageButtonEnabled(Context ctxt, boolean enabled, ImageButton item,
+                                             int iconResId) {
+        item.setEnabled(enabled);
+        Drawable originalIcon = ResourcesCompat.getDrawable(ctxt.getResources(), iconResId, null);
+        Drawable icon = enabled ? originalIcon : convertDrawableToGrayScale(originalIcon);
+        item.setImageDrawable(icon);
+    }
+
+    /**
+     * Mutates and applies a filter that converts the given drawable to a Gray
+     * image. This method may be used to simulate the color of disable icons in
+     * Honeycomb's ActionBar.
+     *
+     * @return a mutated version of the given drawable with a color filter
+     *         applied.
+     */
+    public static Drawable convertDrawableToGrayScale(Drawable drawable) {
+        if (drawable == null) {
+            return null;
+        }
+        Drawable res = drawable.mutate();
+        res.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+        return res;
+    }
+}
