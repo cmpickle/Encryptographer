@@ -6,15 +6,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.telephony.SmsManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 public class SendSMSActivity extends Activity {
 
@@ -34,7 +31,7 @@ public class SendSMSActivity extends Activity {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count)
         {
-            checkIfEmpty();
+            SendSMS.checkIfEmpty(getApplicationContext(), sendSmsBtn, toPhoneNumber, smsMessageET);
         }
 
         @Override
@@ -57,13 +54,14 @@ public class SendSMSActivity extends Activity {
         toPhoneNumber.addTextChangedListener(textWatcher);
         smsMessageET.addTextChangedListener(textWatcher);
 
-        checkIfEmpty();
+        SendSMS.checkIfEmpty(this, sendSmsBtn, toPhoneNumber, smsMessageET);
 
         //OnClick listener for the send button
         sendSmsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendSms();
+                SendSMS.sendSms(getApplicationContext(), toPhoneNumber.getText().toString(), Encryption.encode(smsMessageET.getText().toString()));
+                goToInbox(null);
             }
         });
 
@@ -85,31 +83,9 @@ public class SendSMSActivity extends Activity {
         }
     }
 
-    /**
-     * Sends a SMS using the phone number in the toPhoneNumber EditText and the
-     * message in the smsMessageET EditText
-     */
-    private void sendSms() {
-
-        String toPhone = toPhoneNumber.getText().toString();
-        String smsMessage = Encryption.encode(smsMessageET.getText().toString());
-
-        if(toPhone.isEmpty() || smsMessage.isEmpty())
-            return;
-
-        try {
-            //SmsManager is used to send sms messages
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(toPhone, null, smsMessage, null, null);
-
-            //notify user that the sms was sent
-            Toast.makeText(this, "SMS sent", Toast.LENGTH_LONG).show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        goToInbox(null);
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     /**
@@ -119,18 +95,6 @@ public class SendSMSActivity extends Activity {
      */
     public void goToInbox(View v) {
         finish();
-    }
-
-    private void checkIfEmpty() {
-        ImageButton b = (ImageButton) findViewById(R.id.btnSendSMS);
-
-        String s1 = toPhoneNumber.getText().toString();
-        String s2 = smsMessageET.getText().toString();
-
-        if(s1.trim().isEmpty() || s2.trim().isEmpty())
-            b.setEnabled(false);
-        else
-            b.setEnabled(true);
     }
 
     public void doLaunchContactPicker(View view) {

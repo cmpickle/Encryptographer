@@ -29,7 +29,7 @@ tools:context="com.example.cmpickle.basicsms.ConversationActivity">
             android:onClick="goToReceive"/>
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/conversationTitle"
             android:text="@string/conversation"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="30sp"
