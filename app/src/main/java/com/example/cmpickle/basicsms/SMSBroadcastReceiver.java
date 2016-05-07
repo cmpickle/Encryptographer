@@ -8,8 +8,8 @@ import android.telephony.SmsMessage;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class SMSBroadcastReceiver extends BroadcastReceiver {
 
@@ -20,6 +20,7 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
         Toast.makeText(context, "Got to onRecieve!", Toast.LENGTH_SHORT).show();
 
         Bundle intentExtras = intent.getExtras();
+        String address = "";
 
         if(intentExtras != null) {
             Object[] sms = (Object[]) intentExtras.get(SMS_BUNDLE);
@@ -29,15 +30,19 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
                 SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) sms[i]);
 
                 String smsBody = smsMessage.getMessageBody();
-                String address = smsMessage.getOriginatingAddress();
+                address = smsMessage.getOriginatingAddress();
                 long timeMillis = smsMessage.getTimestampMillis();
 
-                Date date = new Date(timeMillis);
-                AtomicReference<SimpleDateFormat> format = new AtomicReference<>(new SimpleDateFormat("dd/MM/yy"));
-                String dateText = format.get().format(date);
+                Calendar cal = Calendar.getInstance();
+                cal.set(1969, 12, 31, 17, 0);
+                long baseTime = cal.getTimeInMillis();
 
-//                smsMessageStr += address + " at " + "\t" + dateText + "\n";
-//                smsMessageStr += smsBody + "\n";
+                String dateString = ""+timeMillis;
+                long dateTime = Long.valueOf(dateString);
+                long finalTime = dateTime + baseTime;
+                Date date = new Date(finalTime);
+                SimpleDateFormat format = new SimpleDateFormat("MM/dd h:mm aa");
+                String dateText = format.format(date);
 
                 smsMessageStr = ContactLookup.getContactDisplayNameByNumber(address, context) + "\n"
                         + smsBody + "\n" + dateText + "\n";
@@ -47,7 +52,7 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
 
             ReceiveActivity inst = ReceiveActivity.instance();
             if(inst != null)
-                inst.updateList(smsMessageStr);
+                inst.updateList(smsMessageStr, address);
         }
 
         ReceiveActivity.instance().refreshSmsInbox();

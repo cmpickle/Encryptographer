@@ -19,7 +19,7 @@ tools:context="com.example.cmpickle.basicsms.ConversationActivity">
 
         <ImageButton
             android:id="@+id/btnReceive"
-            android:src="@drawable/ic_arrow_back_white"
+            android:src="@drawable/ic_arrow_back_blue"
             android:background="@color/transparent"
             android:contentDescription="@string/back"
             android:layout_width="wrap_content"
@@ -35,6 +35,17 @@ tools:context="com.example.cmpickle.basicsms.ConversationActivity">
             android:textSize="30sp"
             android:background="#07000000"
             android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ToggleButton
+            android:id="@+id/toggleEncryption"
+            android:background="@drawable/toggle_encryption"
+            android:layout_gravity="end"
+            android:checked="true"
+            android:textOn=""
+            android:textOff=""
+            android:layout_margin="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -70,7 +81,7 @@ tools:context="com.example.cmpickle.basicsms.ConversationActivity">
 
         <ImageButton
             android:id="@+id/btnSendSMS"
-            android:src="@drawable/ic_send_white"
+            android:src="@drawable/ic_send_blue"
             android:background="@color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

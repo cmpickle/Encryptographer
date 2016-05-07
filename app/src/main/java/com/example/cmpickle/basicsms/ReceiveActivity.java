@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -52,7 +51,7 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
         smsListView.setAdapter(arrayAdapter);
         smsListView.setOnItemClickListener(this);
 
-        TypefaceUtil.overrideFont(getApplicationContext(), "SERIF", "fonts/TerminusTTF-4.40.1.ttf"); // font from assets: "assets/fonts/Roboto-Regular.ttf
+        TypefaceUtil.overrideFont(getApplicationContext(), "SERIF", "fonts/TerminusTTF-4.40.1.ttf");
 
         refreshSmsInbox();
     }
@@ -60,11 +59,11 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
     public void refreshSmsInbox() {
         ContentResolver contentResolver = getContentResolver();
         Cursor smsInboxCursor = contentResolver.query(Uri.parse("content://sms/inbox"), null, "address IS NOT NULL) GROUP BY (address", null, null);
-        Calendar cal = Calendar.getInstance();
         int indexBody = smsInboxCursor.getColumnIndex("body");
         int indexAddress = smsInboxCursor.getColumnIndex("address");
         int timeMillis = smsInboxCursor.getColumnIndex("date");
 
+        Calendar cal = Calendar.getInstance();
         cal.set(1969, 12, 31, 17, 0);
         long baseTime = cal.getTimeInMillis();
 
@@ -72,6 +71,7 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
             return;
 
         arrayAdapter.clear();
+        phoneNum.clear();
 
         do {
             String dateString = smsInboxCursor.getString(timeMillis);
@@ -89,8 +89,9 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
         smsInboxCursor.close();
     }
 
-    public void updateList(final String smsMessage) {
+    public void updateList(final String smsMessage, String toPhone) {
         arrayAdapter.insert(smsMessage, 0);
+        phoneNum.add(0, toPhone);
         arrayAdapter.notifyDataSetChanged();
     }
 
@@ -98,7 +99,6 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
     {
         Intent intent = new Intent(ReceiveActivity.this, ConversationActivity.class);
-//        String[] smsMessages = smsMessageList.get(position).split("\n");
         intent.putExtra("phoneNum", phoneNum.get(position));
         startActivity(intent);
     }

@@ -12,10 +12,12 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ToggleButton;
 
 public class SendSMSActivity extends Activity {
 
     ImageButton sendSmsBtn;
+    ToggleButton encryption;
     EditText toPhoneNumber;
     EditText smsMessageET;
 
@@ -48,6 +50,7 @@ public class SendSMSActivity extends Activity {
         setContentView(R.layout.activity_send_sms);
 
         sendSmsBtn = (ImageButton) findViewById(R.id.btnSendSMS);
+        encryption = (ToggleButton) findViewById(R.id.toggleEncryption);
         toPhoneNumber = (EditText) findViewById(R.id.editTextPhoneNo);
         smsMessageET = (EditText) findViewById(R.id.editTextSMS);
 
@@ -60,7 +63,10 @@ public class SendSMSActivity extends Activity {
         sendSmsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SendSMS.sendSms(getApplicationContext(), toPhoneNumber.getText().toString(), Encryption.encode(smsMessageET.getText().toString()));
+                if(encryption.isChecked())
+                    SendSMS.sendSms(getApplicationContext(), toPhoneNumber.getText().toString(), Encryption.encode(smsMessageET.getText().toString()));
+                else
+                    SendSMS.sendSms(getApplicationContext(), toPhoneNumber.getText().toString(), smsMessageET.getText().toString());
                 goToInbox(null);
             }
         });

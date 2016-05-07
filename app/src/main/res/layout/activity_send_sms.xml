@@ -19,7 +19,7 @@
 
         <ImageButton
             android:id="@+id/btnInbox"
-            android:src="@drawable/ic_arrow_back_white"
+            android:src="@drawable/ic_arrow_back_blue"
             android:background="@color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,6 +37,28 @@
             android:layout_gravity="center_horizontal"
             android:text="@string/compose"
             android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+        <ToggleButton
+            android:id="@+id/toggleEncryption"
+            android:background="@drawable/toggle_encryption"
+            android:layout_gravity="end"
+            android:checked="true"
+            android:textOn=""
+            android:textOff=""
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!--<ImageButton-->
+            <!--android:id="@+id/attach"-->
+            <!--android:src="@drawable/ic_attach_file_blue"-->
+            <!--android:background="@color/transparent"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="end"-->
+            <!--android:layout_weight="0"-->
+            <!--android:text="@string/attach"-->
+            <!--android:onClick=""/>-->
 
     </android.support.v7.widget.Toolbar>
 
@@ -56,7 +78,7 @@
 
         <ImageButton
             android:id="@+id/selectContact"
-            android:src="@drawable/ic_contacts_white"
+            android:src="@drawable/ic_contacts_blue"
             android:background="@color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -90,7 +112,7 @@
 
         <ImageButton
             android:id="@+id/btnSendSMS"
-            android:src="@drawable/ic_send_white"
+            android:src="@drawable/ic_send_blue"
             android:background="@color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

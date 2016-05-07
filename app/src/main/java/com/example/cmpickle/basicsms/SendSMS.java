@@ -30,19 +30,19 @@ public class SendSMS {
 
     public static void checkIfEmpty(Context context, ImageButton b, EditText smsMessageET) {
         if(smsMessageET.getText().toString().trim().isEmpty()) {
-            setImageButtonEnabled(context, false, b, R.drawable.ic_send_white);
+            setImageButtonEnabled(context, false, b, R.drawable.ic_send_blue);
         }
         else {
-            setImageButtonEnabled(context, true, b, R.drawable.ic_send_white);
+            setImageButtonEnabled(context, true, b, R.drawable.ic_send_blue);
         }
     }
 
     public static void checkIfEmpty(Context context, ImageButton b, EditText toPhone, EditText smsMessageET) {
         if(smsMessageET.getText().toString().trim().isEmpty() || toPhone.getText().toString().trim().isEmpty()) {
-            setImageButtonEnabled(context, false, b, R.drawable.ic_send_white);
+            setImageButtonEnabled(context, false, b, R.drawable.ic_send_blue);
         }
         else {
-            setImageButtonEnabled(context, true, b, R.drawable.ic_send_white);
+            setImageButtonEnabled(context, true, b, R.drawable.ic_send_blue);
         }
     }
 

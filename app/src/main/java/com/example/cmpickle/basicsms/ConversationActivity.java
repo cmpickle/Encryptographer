@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,6 +34,7 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
     ArrayAdapter arrayAdapter;
 
     ImageButton sendSmsBtn;
+    ToggleButton encryption;
     EditText smsMessageET;
     TextView title;
 
@@ -94,6 +97,7 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
 
 
         sendSmsBtn = (ImageButton) findViewById(R.id.btnSendSMS);
+        encryption = (ToggleButton) findViewById(R.id.toggleEncryption);
         smsMessageET = (EditText) findViewById(R.id.editTextSMS);
 
         smsMessageET.addTextChangedListener(textWatcher);
@@ -104,7 +108,10 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
         sendSmsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SendSMS.sendSms(getApplicationContext(), phoneNo, Encryption.encode(smsMessageET.getText().toString()));
+                if(encryption.isChecked())
+                    SendSMS.sendSms(getApplicationContext(), phoneNo, Encryption.encode(smsMessageET.getText().toString()));
+                else
+                    SendSMS.sendSms(getApplicationContext(), phoneNo, smsMessageET.getText().toString());
                 reset();
             }
         });
