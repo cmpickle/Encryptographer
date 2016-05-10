@@ -38,14 +38,13 @@ tools:context="com.example.cmpickle.basicsms.ConversationActivity">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <ToggleButton
+        <ImageButton
             android:id="@+id/toggleEncryption"
-            android:background="@drawable/toggle_encryption"
+            android:src="@drawable/ic_enhanced_encryption_blue"
+            android:background="@color/transparent"
+            android:onClick="toggleEncryption"
             android:layout_gravity="end"
-            android:checked="true"
-            android:textOn=""
-            android:textOff=""
-            android:layout_margin="10dp"
+            android:padding="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 

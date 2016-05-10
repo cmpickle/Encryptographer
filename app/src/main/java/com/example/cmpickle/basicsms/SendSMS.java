@@ -11,14 +11,23 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class SendSMS {
+    public static boolean encrypted = true;
+
     public static void sendSms(Context context, String toPhone, String smsMessage) {
         if(toPhone.isEmpty() || smsMessage.isEmpty())
             return;
 
+        smsMessage = (encrypted)? Encryption.encode(smsMessage):smsMessage;
+
         try {
             //SmsManager is used to send sms messages
             SmsManager smsManager = SmsManager.getDefault();
+
+            if(smsMessage.length()<154)
             smsManager.sendTextMessage(toPhone, null, smsMessage, null, null);
+            else {
+                smsManager.sendMultipartTextMessage(toPhone, null, smsManager.divideMessage(smsMessage), null, null);
+            }
 
             //notify user that the sms was sent
             Toast.makeText(context, "SMS sent", Toast.LENGTH_LONG).show();
