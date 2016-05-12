@@ -1,14 +1,17 @@
 package com.example.cmpickle.basicsms;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Telephony;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.text.SimpleDateFormat;
@@ -37,6 +40,9 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
     @Override
     protected void onResume() {
         super.onResume();
+
+        setDefault();
+
         refreshSmsInbox();
     }
 
@@ -106,6 +112,34 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
     public void goToCompose(View v) {
         Intent intent = new Intent(ReceiveActivity.this, SendSMSActivity.class);
         startActivity(intent);
+    }
+
+    @TargetApi(19)
+    private void setDefault() {
+        final String myPackageName = getPackageName();
+        if (!Telephony.Sms.getDefaultSmsPackage(this).equals(myPackageName)) {
+            // App is not default.
+            // Show the "not currently set as the default SMS app" interface
+            View viewGroup = findViewById(R.id.not_default_app);
+            viewGroup.setVisibility(View.VISIBLE);
+
+            // Set up a button that allows the user to change the default SMS app
+            Button button = (Button) findViewById(R.id.change_default_app);
+            button.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent =
+                            new Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT);
+                    intent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME,
+                            myPackageName);
+                    startActivity(intent);
+                }
+            });
+        } else {
+            // App is the default.
+            // Hide the "not currently set as the default SMS app" interface
+            View viewGroup = findViewById(R.id.not_default_app);
+            viewGroup.setVisibility(View.GONE);
+        }
     }
 
 }

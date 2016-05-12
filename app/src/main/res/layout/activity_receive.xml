@@ -47,6 +47,20 @@
 
         </android.support.v7.widget.Toolbar>
 
+    <LinearLayout
+        android:id="@+id/not_default_app"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/change_default_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="make default"/>
+
+    </LinearLayout>
+
     <ListView
         android:id="@+id/SMSList"
         android:layout_width="match_parent"

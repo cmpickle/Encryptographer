@@ -2,6 +2,7 @@ package com.example.cmpickle.basicsms;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -16,6 +17,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,7 +30,7 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
     Bundle conversationBundle;
     String phoneNo;
     String name;
-//    private static ConversationActivity inst;
+    private static ConversationActivity inst;
     ArrayList<String> smsMessageList = new ArrayList<>();
     ListView smsListView;
     ArrayAdapter arrayAdapter;
@@ -57,14 +60,14 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
         }
     };
 
-//    public static ConversationActivity instance() {
-//        return inst;
-//    }
+    public static ConversationActivity instance() {
+        return inst;
+    }
 
     @Override
     protected void onStart() {
         super.onStart();
-//        inst = this;
+        inst = this;
     }
 
     @Override
@@ -102,6 +105,7 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
         else
             encryption.setImageResource(R.drawable.ic_no_encryption_blue);
         smsMessageET = (EditText) findViewById(R.id.editTextSMS);
+//        registerForContextMenu(smsMessageET);
 
         smsMessageET.addTextChangedListener(textWatcher);
 
@@ -115,7 +119,23 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
                 reset();
             }
         });
+
+//        smsMessageET.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                openOptionsMenu();
+//                return true;
+//            }
+//        });
     }
+//
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        super.onCreateOptionsMenu(menu);
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
 
     public void refreshSmsInbox() {
         Calendar cal = Calendar.getInstance();
@@ -124,6 +144,7 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
         int indexBody = smsInboxCursor.getColumnIndex("body");
         int indexType = smsInboxCursor.getColumnIndex("type");
         int timeMillis = smsInboxCursor.getColumnIndex("date");
+        int readCol = smsInboxCursor.getColumnIndex("read");
 
         cal.set(1969, 12, 31, 17, 0);
         long baseTime = cal.getTimeInMillis();
@@ -134,6 +155,8 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
             return;
         arrayAdapter.clear();
         do {
+            if(smsInboxCursor.getInt(readCol)==0)
+                markMessageRead(this, phoneNo, smsInboxCursor.getString(indexBody));
             String str;
             String dateString = smsInboxCursor.getString(timeMillis);
             long dateTime = Long.valueOf(dateString);
@@ -152,10 +175,10 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
         smsInboxCursor.close();
     }
 
-//    public void updateList(final String smsMessage) {
-//        arrayAdapter.insert(smsMessage, arrayAdapter.getCount()-1);
-//        arrayAdapter.notifyDataSetChanged();
-//    }
+    public void updateList(final String smsMessage) {
+        arrayAdapter.insert(smsMessage, arrayAdapter.getCount()-1);
+        arrayAdapter.notifyDataSetChanged();
+    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
@@ -203,6 +226,31 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
         {
             encryption.setImageResource(R.drawable.ic_enhanced_encryption_blue);
             SendSMS.encrypted = true;
+        }
+    }
+
+    //TODO: Fix this method
+    private void markMessageRead(Context context, String number, String body) {
+
+        Uri uri = Uri.parse("content://sms/inbox");
+        Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
+        try{
+
+            while (cursor.moveToNext()) {
+                if ((cursor.getString(cursor.getColumnIndex("address")).equals(number)) && (cursor.getInt(cursor.getColumnIndex("read")) == 0)) {
+                    if (cursor.getString(cursor.getColumnIndex("body")).startsWith(body)) {
+                        String SmsMessageId = cursor.getString(cursor.getColumnIndex("_id"));
+                        ContentValues values = new ContentValues();
+                        Toast.makeText(this, body + " Read", Toast.LENGTH_SHORT).show();
+                        values.put("read", true);
+                        context.getContentResolver().update(Uri.parse("content://sms/inbox"), values, "_id=" + SmsMessageId, null);
+                        return;
+                    }
+                }
+            }
+        }catch(Exception e)
+        {
+            Log.e("Mark Read", "Error in Read: "+e.toString());
         }
     }
 }
