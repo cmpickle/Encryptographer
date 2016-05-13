@@ -3,39 +3,26 @@ package com.example.cmpickle.basicsms;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.ContentUris;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.provider.Telephony;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Random;
 
 public class ReceiveActivity extends Activity implements AdapterView.OnItemClickListener {
 
     private static ReceiveActivity inst;
-//    ArrayList<String> smsMessageList = new ArrayList<>();
     ArrayList<Sms> contactMessageList = new ArrayList<>();
     ListView smsListView;
-    ArrayAdapter arrayAdapter;
     ContactAdapter contactAdapter;
     ArrayList<String> phoneNum = new ArrayList<>();
 
@@ -66,7 +53,6 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
 
         smsListView = (ListView) findViewById(R.id.SMSList);
         contactAdapter = new ContactAdapter(this, R.layout.recieve_conversation_item, contactMessageList);
-//        smsListView.setAdapter(arrayAdapter);
         smsListView.setAdapter(contactAdapter);
         smsListView.setOnItemClickListener(this);
 
@@ -90,7 +76,6 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
             return;
 
         contactAdapter.clear();
-//        arrayAdapter.clear();
         phoneNum.clear();
 
         do {
@@ -103,18 +88,17 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
             String str = ContactLookup.getContactDisplayNameByNumber(smsInboxCursor.getString(indexAddress), this) + "\n"
                     + smsInboxCursor.getString(indexBody) + "\n" + dateText + "\n";
             phoneNum.add(smsInboxCursor.getString(indexAddress));
-//            arrayAdapter.add(str);
-            contactAdapter.add(openPhoto(getContactIDFromNumber(smsInboxCursor.getString(indexAddress), this)), ContactLookup.getContactDisplayNameByNumber(smsInboxCursor.getString(indexAddress), this), smsInboxCursor.getString(indexBody), dateText);
+            contactAdapter.add(Contact.openPhoto(Contact.getContactIDFromNumber(smsInboxCursor.getString(indexAddress), this), this), ContactLookup.getContactDisplayNameByNumber(smsInboxCursor.getString(indexAddress), this), smsInboxCursor.getString(indexBody), dateText);
         } while(smsInboxCursor.moveToNext());
 
         smsInboxCursor.close();
     }
 
-    public void updateList(final String smsMessage, String toPhone)
+    public void updateList(final Sms smsMessage, String toPhone)
     {
-        arrayAdapter.insert(smsMessage, 0);
+        contactAdapter.insert(smsMessage, 0);
         phoneNum.add(0, toPhone);
-        arrayAdapter.notifyDataSetChanged();
+        contactAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -159,47 +143,4 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
     }
 
 
-    public Bitmap openPhoto(long contactId) {
-        Uri contactUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, contactId);
-//        Uri photoUri = Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
-        Uri photoUri = Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo.DISPLAY_PHOTO);
-        try {
-            AssetFileDescriptor fd = getContentResolver().openAssetFileDescriptor(photoUri, "r");
-            return BitmapFactory.decodeStream(fd.createInputStream());
-        } catch(IOException e) {
-
-            Bitmap bm = BitmapFactory.decodeResource(getResources(), R.drawable.unnamed);
-
-            return bm;
-        }
-//        Cursor cursor = getContentResolver().query(photoUri,
-//                new String[] {ContactsContract.Contacts.Photo.PHOTO}, null, null, null);
-//        if (cursor == null) {
-//            return null;
-//        }
-//        try {
-//            if (cursor.moveToFirst()) {
-//                byte[] data = cursor.getBlob(0);
-//                if (data != null) {
-//                    return BitmapFactory.decodeStream(new ByteArrayInputStream(data));
-//                }
-//            }
-//        } finally {
-//            cursor.close();
-//        }
-
-    }
-
-    public static long getContactIDFromNumber(String contactNumber, Context context) {
-        String UriContactNumber = Uri.encode(contactNumber);
-        long phoneContactID = 1;
-        Cursor contactLookupCursor = context.getContentResolver().query(Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, UriContactNumber),
-                new String[]{ContactsContract.PhoneLookup.DISPLAY_NAME, ContactsContract.PhoneLookup._ID}, null, null, null);
-        while (contactLookupCursor.moveToNext()) {
-            phoneContactID = contactLookupCursor.getLong(contactLookupCursor.getColumnIndexOrThrow(ContactsContract.PhoneLookup._ID));
-        }
-        contactLookupCursor.close();
-
-        return phoneContactID;
-    }
 }

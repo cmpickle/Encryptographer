@@ -21,6 +21,8 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
 
         Bundle intentExtras = intent.getExtras();
         String address = "";
+        String smsBody = "";
+        String dateText = "";
 
         if(intentExtras != null) {
             Object[] sms = (Object[]) intentExtras.get(SMS_BUNDLE);
@@ -29,7 +31,7 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
             for(int i = 0; i < sms.length; i++) {
                 SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) sms[i]);
 
-                String smsBody = smsMessage.getMessageBody();
+                smsBody = smsMessage.getMessageBody();
                 address = smsMessage.getOriginatingAddress();
                 long timeMillis = smsMessage.getTimestampMillis();
 
@@ -42,7 +44,7 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
                 long finalTime = dateTime + baseTime;
                 Date date = new Date(finalTime);
                 SimpleDateFormat format = new SimpleDateFormat("MM/dd h:mm aa");
-                String dateText = format.format(date);
+                dateText = format.format(date);
 
                 smsMessageStr = ContactLookup.getContactDisplayNameByNumber(address, context) + "\n"
                         + smsBody + "\n" + dateText + "\n";
@@ -52,7 +54,7 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
 
             ReceiveActivity inst = ReceiveActivity.instance();
             if(inst != null)
-                inst.updateList(smsMessageStr, address);
+                inst.updateList(new Sms(Contact.openPhoto(Contact.getContactIDFromNumber(address, context), context), ContactLookup.getContactDisplayNameByNumber(address, context), smsBody, dateText), address);
         }
 
         ReceiveActivity.instance().refreshSmsInbox();

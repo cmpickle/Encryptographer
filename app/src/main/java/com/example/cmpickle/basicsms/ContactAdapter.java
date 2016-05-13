@@ -48,6 +48,10 @@ public class ContactAdapter extends ArrayAdapter<Sms> {
         contacts.add(new Sms(bitmap, name, body, date));
     }
 
+    public void insert(Sms sms, int position) {
+        contacts.add(position,sms);
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View row = convertView;
