@@ -229,7 +229,6 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
         }
     }
 
-    //TODO: Fix this method
     private void markMessageRead(Context context, String number, String body) {
 
         Uri uri = Uri.parse("content://sms/inbox");
@@ -241,7 +240,6 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
                     if (cursor.getString(cursor.getColumnIndex("body")).startsWith(body)) {
                         String SmsMessageId = cursor.getString(cursor.getColumnIndex("_id"));
                         ContentValues values = new ContentValues();
-                        Toast.makeText(this, body + " Read", Toast.LENGTH_SHORT).show();
                         values.put("read", true);
                         context.getContentResolver().update(Uri.parse("content://sms/inbox"), values, "_id=" + SmsMessageId, null);
                         return;
