@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -18,7 +19,6 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,15 +30,18 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
     Bundle conversationBundle;
     String phoneNo;
     String name;
+    Bitmap photo;
+    Bitmap mePhoto;
     private static ConversationActivity inst;
-    ArrayList<String> smsMessageList = new ArrayList<>();
+    ArrayList<Sms> smsMessageList = new ArrayList<>();
     ListView smsListView;
-    ArrayAdapter arrayAdapter;
+    ContactAdapter contactAdapter;
 
     ImageButton sendSmsBtn;
     ImageButton encryption;
     EditText smsMessageET;
     TextView title;
+
 
     private TextWatcher textWatcher = new TextWatcher() {
         @Override
@@ -85,12 +88,14 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
         title = (TextView) findViewById(R.id.conversationTitle);
 
         smsListView = (ListView) findViewById(R.id.SMSList);
-        arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, smsMessageList);
-        smsListView.setAdapter(arrayAdapter);
+        contactAdapter = new ContactAdapter(this, R.layout.conversation_received_item, smsMessageList);
+        smsListView.setAdapter(contactAdapter);
         smsListView.setOnItemClickListener(this);
 
         conversationBundle = getIntent().getExtras();
         phoneNo = conversationBundle.getString("phoneNum");
+        photo = Contact.openPhoto(Contact.getContactIDFromNumber(phoneNo, this), this);
+        mePhoto = Contact.openPhoto(Contact.getContactIDFromNumber("1", this), this);
 
         name = ContactLookup.getContactDisplayNameByNumber(phoneNo, this);
         title.setText(name);
@@ -153,7 +158,7 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
 
         if(indexBody < 0 || !smsInboxCursor.moveToFirst())
             return;
-        arrayAdapter.clear();
+        contactAdapter.clear();
         do {
             if(smsInboxCursor.getInt(readCol)==0)
                 markMessageRead(this, phoneNo, smsInboxCursor.getString(indexBody));
@@ -165,34 +170,34 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
             SimpleDateFormat format = new SimpleDateFormat("MM/dd h:mm aa");
             String dateText = format.format(date);
             if(smsInboxCursor.getInt(indexType)==2)
-                str = "Me" + "\n" + smsInboxCursor.getString(indexBody) + "\n" + dateText + "\n";
+                contactAdapter.add(mePhoto, "Me", smsInboxCursor.getString(indexBody), dateText);
             else
-                str = name + "\n" + smsInboxCursor.getString(indexBody) + "\n" + dateText + "\n";
+                contactAdapter.add(photo, ContactLookup.getContactDisplayNameByNumber(phoneNo, this), smsInboxCursor.getString(indexBody), dateText);
 
-            arrayAdapter.add(str);
+
         } while(smsInboxCursor.moveToNext());
 
         smsInboxCursor.close();
     }
 
-    public void updateList(final String smsMessage) {
-        arrayAdapter.insert(smsMessage, arrayAdapter.getCount()-1);
-        arrayAdapter.notifyDataSetChanged();
+    public void updateList(final Sms sms) {
+        contactAdapter.insert(sms, contactAdapter.getCount()-1);
+        contactAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
     {
         try {
-            String[] smsMessages = smsMessageList.get(position).split("\n");
-            String address = smsMessages[0];
-            String smsMessage = "";
+            String smsMessage = smsMessageList.get(position).body;
+//            String address = smsMessages[0];
+//            String smsMessage = "";
+//
+//            for(int i = 1; i < smsMessages.length-1; i++) {
+//                smsMessage += smsMessages[i];
+//            }
 
-            for(int i = 1; i < smsMessages.length-1; i++) {
-                smsMessage += smsMessages[i];
-            }
-
-            String smsMessageStr = address + "\n";
+            String smsMessageStr = smsMessageList.get(position).name + "\n";
             smsMessageStr += Encryption.decode(smsMessage);
 
             MyToast.show(this, smsMessageStr, true);

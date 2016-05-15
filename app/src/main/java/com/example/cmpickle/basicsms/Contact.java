@@ -30,8 +30,22 @@ public class Contact {
         Uri photoUri = Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo.DISPLAY_PHOTO);
         try {
             AssetFileDescriptor fd = context.getContentResolver().openAssetFileDescriptor(photoUri, "r");
-            return BitmapFactory.decodeStream(fd.createInputStream());
+
+            BitmapFactory.Options options = new BitmapFactory.Options();
+//            options.inJustDecodeBounds = true;
+//            BitmapFactory.decodeStream(fd.createInputStream());
+
+            options.inSampleSize = calculateInSampleSize(options, 48, 48);
+
+            options.inJustDecodeBounds = false;
+            Bitmap result = BitmapFactory.decodeStream(fd.createInputStream());
+
+            fd.close();
+
+            return result;
         } catch(IOException e) {
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = calculateInSampleSize(options, 48, 48);
 
             Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.drawable.unnamed);
 
@@ -51,5 +65,28 @@ public class Contact {
         contactLookupCursor.close();
 
         return phoneContactID;
+    }
+
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) > reqHeight
+                    && (halfWidth / inSampleSize) > reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
     }
 }

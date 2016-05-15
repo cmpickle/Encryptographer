@@ -9,6 +9,8 @@ public class Sms {
     public String body;
     public String date;
 
+    public int viewType = 1;
+
     public Sms() {
         super();
     }
@@ -19,5 +21,14 @@ public class Sms {
         this.name=name;
         this.body=body;
         this.date=date;
+    }
+
+    public Sms(Bitmap photo, String name, String body, String date, int viewType) {
+        super();
+        this.photo=photo;
+        this.name=name;
+        this.body=body;
+        this.date=date;
+        this.viewType=viewType;
     }
 }

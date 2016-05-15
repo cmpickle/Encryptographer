@@ -1,13 +1,8 @@
 package com.example.cmpickle.basicsms;
 
 import android.app.Activity;
-import android.content.ContentUris;
 import android.content.Context;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.net.Uri;
-import android.provider.ContactsContract;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,13 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.cmpickle.basicsms.Contact;
-
-import java.io.ByteArrayInputStream;
-
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ContactAdapter extends ArrayAdapter<Sms> {
 
@@ -59,8 +48,8 @@ public class ContactAdapter extends ArrayAdapter<Sms> {
 
         if(row == null) {
             LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-            row = inflater.inflate(layoutResourceId, parent, false);
 
+            row = inflater.inflate(layoutResourceId, parent, false);
             holder = new ContactHolder();
             holder.imgIcon = (ImageView)row.findViewById(R.id.receiveImage);
             holder.txtTitle = (TextView)row.findViewById(R.id.receiveTitle);
@@ -88,10 +77,4 @@ public class ContactAdapter extends ArrayAdapter<Sms> {
         TextView receiveBody;
         TextView receiveDate;
     }
-//
-//    @Override
-//    public void clear() {
-//        super();
-//
-//    }
 }
