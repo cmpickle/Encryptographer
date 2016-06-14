@@ -11,6 +11,7 @@ import android.provider.Telephony;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.text.SimpleDateFormat;
@@ -25,6 +26,8 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
     ListView smsListView;
     ContactAdapter contactAdapter;
     ArrayList<String> phoneNum = new ArrayList<>();
+
+    ImageButton btnCompose;
 
     public static ReceiveActivity instance() {
         return inst;
@@ -55,6 +58,16 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
         contactAdapter = new ContactAdapter(this, R.layout.recieve_conversation_item, contactMessageList);
         smsListView.setAdapter(contactAdapter);
         smsListView.setOnItemClickListener(this);
+
+        btnCompose = (ImageButton) findViewById(R.id.btnCompose);
+        btnCompose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                Intent intent = new Intent(ReceiveActivity.this, SendSMSActivity.class);
+                startActivity(intent);
+            }
+        });
 
         TypefaceUtil.overrideFont(getApplicationContext(), "SERIF", "fonts/TerminusTTF-4.40.1.ttf");
 
@@ -106,11 +119,6 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
     {
         Intent intent = new Intent(ReceiveActivity.this, ConversationActivity.class);
         intent.putExtra("phoneNum", phoneNum.get(position));
-        startActivity(intent);
-    }
-
-    public void goToCompose(View v) {
-        Intent intent = new Intent(ReceiveActivity.this, SendSMSActivity.class);
         startActivity(intent);
     }
 

@@ -25,8 +25,7 @@ tools:context="com.example.cmpickle.basicsms.ConversationActivity">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_weight="1"
-            android:onClick="goToReceive"/>
+            android:layout_weight="1"/>
 
         <TextView
             android:id="@+id/conversationTitle"
@@ -42,7 +41,6 @@ tools:context="com.example.cmpickle.basicsms.ConversationActivity">
             android:id="@+id/toggleEncryption"
             android:src="@drawable/ic_enhanced_encryption_blue"
             android:background="@color/transparent"
-            android:onClick="toggleEncryption"
             android:layout_gravity="end"
             android:padding="15dp"
             android:layout_width="wrap_content"

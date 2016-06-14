@@ -28,6 +28,7 @@ local.properties
 .idea/scopes/scope_settings.xml
 .idea/vcs.xml
 *.iml
+*.log
 
 # OS-specific files
 .DS_Store

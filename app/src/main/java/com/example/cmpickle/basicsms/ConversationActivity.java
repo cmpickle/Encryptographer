@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -39,6 +40,8 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
 
     ImageButton sendSmsBtn;
     ImageButton encryption;
+    ImageButton btnRecieve;
+    ImageButton toggleEncryption;
     EditText smsMessageET;
     TextView title;
 
@@ -105,6 +108,8 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
 
         sendSmsBtn = (ImageButton) findViewById(R.id.btnSendSMS);
         encryption = (ImageButton) findViewById(R.id.toggleEncryption);
+        btnRecieve = (ImageButton) findViewById(R.id.btnReceive);
+        toggleEncryption = (ImageButton) findViewById(R.id.toggleEncryption);
         if(SendSMS.encrypted)
             encryption.setImageResource(R.drawable.ic_enhanced_encryption_blue);
         else
@@ -113,6 +118,28 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
 //        registerForContextMenu(smsMessageET);
 
         smsMessageET.addTextChangedListener(textWatcher);
+        btnRecieve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                finish();
+            }
+        });
+        toggleEncryption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                if(SendSMS.encrypted)
+                {
+                    encryption.setImageResource(R.drawable.ic_no_encryption_blue);
+                    SendSMS.encrypted = false;
+                } else
+                {
+                    encryption.setImageResource(R.drawable.ic_enhanced_encryption_blue);
+                    SendSMS.encrypted = true;
+                }
+            }
+        });
 
         SendSMS.checkIfEmpty(this, sendSmsBtn, smsMessageET);
 
@@ -206,10 +233,6 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
         }
     }
 
-    public void goToReceive(View v) {
-        finish();
-    }
-
     private void reset() {
                 smsMessageET.setText("");
 
@@ -220,18 +243,6 @@ public class ConversationActivity extends Activity implements AdapterView.OnItem
                         InputMethodManager.HIDE_NOT_ALWAYS);
 
                 refreshSmsInbox();
-    }
-
-    public void toggleEncryption(View v) {
-        if(SendSMS.encrypted)
-        {
-            encryption.setImageResource(R.drawable.ic_no_encryption_blue);
-            SendSMS.encrypted = false;
-        } else
-        {
-            encryption.setImageResource(R.drawable.ic_enhanced_encryption_blue);
-            SendSMS.encrypted = true;
-        }
     }
 
     private void markMessageRead(Context context, String number, String body) {

@@ -17,6 +17,8 @@ public class SendSMSActivity extends Activity {
 
     ImageButton sendSmsBtn;
     ImageButton encryption;
+    ImageButton btnInbox;
+    ImageButton toggleEncryption;
     EditText toPhoneNumber;
     EditText smsMessageET;
 
@@ -50,6 +52,8 @@ public class SendSMSActivity extends Activity {
 
         sendSmsBtn = (ImageButton) findViewById(R.id.btnSendSMS);
         encryption = (ImageButton) findViewById(R.id.toggleEncryption);
+        btnInbox = (ImageButton) findViewById(R.id.btnInbox);
+        toggleEncryption = (ImageButton) findViewById(R.id.toggleEncryption);
         if(SendSMS.encrypted)
             encryption.setImageResource(R.drawable.ic_enhanced_encryption_blue);
         else
@@ -67,7 +71,29 @@ public class SendSMSActivity extends Activity {
             @Override
             public void onClick(View v) {
                 SendSMS.sendSms(getApplicationContext(), toPhoneNumber.getText().toString(), smsMessageET.getText().toString());
-                goToInbox(null);
+                finish();
+            }
+        });
+        btnInbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                finish();
+            }
+        });
+        toggleEncryption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                if(SendSMS.encrypted)
+                {
+                    encryption.setImageResource(R.drawable.ic_no_encryption_blue);
+                    SendSMS.encrypted = false;
+                } else
+                {
+                    encryption.setImageResource(R.drawable.ic_enhanced_encryption_blue);
+                    SendSMS.encrypted = true;
+                }
             }
         });
 
@@ -94,30 +120,9 @@ public class SendSMSActivity extends Activity {
         super.onDestroy();
     }
 
-    /**
-     * Starts the Receive Activity
-     *
-     * @param v - The current view
-     */
-    public void goToInbox(View v) {
-        finish();
-    }
-
     public void doLaunchContactPicker(View view) {
         Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
         contactPickerIntent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
         startActivityForResult(contactPickerIntent, PICK_CONTACT_REQUEST);
-    }
-
-    public void toggleEncryption(View v) {
-        if(SendSMS.encrypted)
-        {
-            encryption.setImageResource(R.drawable.ic_no_encryption_blue);
-            SendSMS.encrypted = false;
-        } else
-        {
-            encryption.setImageResource(R.drawable.ic_enhanced_encryption_blue);
-            SendSMS.encrypted = true;
-        }
     }
 }
