@@ -33,9 +33,9 @@ public class SmsReceiver extends BroadcastReceiver{
             String dateText = "";
 
             for(int i = 0; i < sms.length; i++) {
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     String format = intentExtras.getString("format");
-                    smsMessage = SmsMessage.createFromPdu((byte[]) sms[i], format);
+                    smsMessage = SmsMessage.createFromPdu((byte[]) sms[i]); //format
                 } else
                 {
                     smsMessage = SmsMessage.createFromPdu((byte[]) sms[i]);

@@ -11,7 +11,8 @@ import android.provider.ContactsContract;
 
 import java.io.IOException;
 
-public class Contact {
+public class Contact implements Runnable {
+    private static Bitmap unnamed = BitmapFactory.decodeResource(ReceiveActivity.getContext().getResources(),R.drawable.unnamed);
     public Bitmap photo;
     public String name;
 
@@ -47,10 +48,14 @@ public class Contact {
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inSampleSize = calculateInSampleSize(options, 48, 48);
 
-            Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.drawable.unnamed);
-
-            return bm;
+            return unnamed;
         }
+
+
+
+    }
+
+    public void run() {
 
     }
 

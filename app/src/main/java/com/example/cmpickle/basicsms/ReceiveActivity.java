@@ -3,6 +3,7 @@ package com.example.cmpickle.basicsms;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -36,7 +37,6 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
     @Override
     protected void onStart() {
         super.onStart();
-        inst = this;
     }
 
     @Override
@@ -53,6 +53,7 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receive);
+        inst = this;
 
         smsListView = (ListView) findViewById(R.id.SMSList);
         contactAdapter = new ContactAdapter(this, R.layout.recieve_conversation_item, contactMessageList);
@@ -120,6 +121,10 @@ public class ReceiveActivity extends Activity implements AdapterView.OnItemClick
         Intent intent = new Intent(ReceiveActivity.this, ConversationActivity.class);
         intent.putExtra("phoneNum", phoneNum.get(position));
         startActivity(intent);
+    }
+
+    public static Context getContext() {
+        return inst.getApplicationContext();
     }
 
     @TargetApi(19)
